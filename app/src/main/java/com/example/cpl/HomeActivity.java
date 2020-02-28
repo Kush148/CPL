@@ -17,6 +17,24 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         btmNav=findViewById(R.id.bottom_nav);
+        btmNav.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener=
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    Fragment currentFragment=null;
+
+                    switch (item.getItemId()){
+                        case R.id.action_more:
+                            currentFragment=new MoreFragment();
+                            break;
+                    }
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,currentFragment).commit();
+                    return true;
+                }
+            };
 
 }

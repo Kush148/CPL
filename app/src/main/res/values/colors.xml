@@ -3,6 +3,10 @@
     <color name="colorPrimary">#0091EA</color>
     <color name="colorPrimaryDark">#111D66</color>
     <color name="colorAccent">#FF6D00</color>
-    <color name="White">#FFFFFF</color>
     <color name="white">#FFFFFF</color>
+    <color name="grey">#74101013</color>
+
+    <color name="login_form_details">#ffffff</color>
+    <color name="login_form_details_light">#ccB4E0F8</color>
+    <color name="login_form_details_medium">#66ffffff</color>
 </resources>
