@@ -2,7 +2,7 @@
     <item android:id="@+id/action_home"
         android:title="Home"
         android:icon="@drawable/home" />
-    <item android:id="@+id/action_Season"
+    <item android:id="@+id/action_season"
         android:title="Season"
         android:icon="@drawable/match" />
     <item android:id="@+id/action_team"

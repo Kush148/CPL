@@ -10,41 +10,45 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
-    BottomNavigationView btmNav ;
+    BottomNavigationView btmNav;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        btmNav=findViewById(R.id.bottom_nav);
-        Fragment currentFragment=new HomeFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,currentFragment).commit();
+        btmNav = findViewById(R.id.bottom_nav);
+        Fragment currentFragment = new HomeFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, currentFragment).commit();
 
 
         btmNav.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener=
+    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment currentFragment=null;
+                    Fragment currentFragment = null;
 
-                    switch (item.getItemId()){
+                    switch (item.getItemId()) {
                         case R.id.action_home:
-                            currentFragment=new HomeFragment();
+                            currentFragment = new HomeFragment();
                             break;
-
+                        case R.id.action_season:
+                            currentFragment = new SeasonFragment();
+                            break;
+                        case R.id.action_team:
+                            currentFragment = new TeamFragment();
+                            break;
                         case R.id.action_more:
-                            currentFragment=new MoreFragment();
+                            currentFragment = new MoreFragment();
                             break;
 
-                        case R.id.action_Season:
-                            currentFragment=new LeagueFragment();
-                            break;
+
                     }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,currentFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, currentFragment).commit();
                     return true;
                 }
             };

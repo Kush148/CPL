@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,20 +23,21 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LeagueFragment extends Fragment {
-    View view;
-    private RecyclerView sRecyclerview;
-    List<Season> SeasonList = new ArrayList<>();
+public class TeamFragment extends Fragment {
 
-    @Nullable
+    View view;
+    private RecyclerView tRecyclerView;
+    List<Team> teamList = new ArrayList<>();
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fregment_league, container, false);
-        sRecyclerview = (RecyclerView) view.findViewById(R.id.rc_SeasonId);
-        // get the reference of Button
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        view = inflater.inflate(R.layout.fragment_team, container, false);
+        tRecyclerView =  view.findViewById(R.id.rc_teamId);
+
         new MyTask().execute();
         return view;
-
     }
     private class MyTask extends AsyncTask<Void, Void, Void> {
         String return_msg;
@@ -47,8 +46,9 @@ public class LeagueFragment extends Fragment {
         protected Void doInBackground(Void... voids) {
             URL url = null;
             try {
-                //System.out.println("check ride  "+rideType+" seats "+seatAvailable);
-                url = new URL("http://192.168.2.23:8080/WebServicesCPL/cpl/main/viewSeason");
+
+
+                url = new URL("http://" + Constants.localHost+"/" + Constants.projectPath + "main/viewTeams");
 
                 HttpURLConnection client = null;
 
@@ -81,16 +81,15 @@ public class LeagueFragment extends Fragment {
                 JSONObject mainObject = new JSONObject(response.toString());
                 return_msg = mainObject.getString("Status");
 
-                JSONArray SeasonArray = mainObject.getJSONArray("String");
+                JSONArray SeasonArray = mainObject.getJSONArray("Teams");
                 JSONObject singleSeason;
                 for (int i = 0; i < SeasonArray.length(); i++) {
                     singleSeason = SeasonArray.getJSONObject(i);
-                    String SeasonTitle = singleSeason.getString("Season Title");
-                    String Description = singleSeason.getString("Description");
-                    String StartDate = singleSeason.getString("Start Date");
-                    String EndDate = singleSeason.getString("End Date");
+                    String teamName = singleSeason.getString("teamName");
+                    String color = singleSeason.getString("teamColor");
 
-                    SeasonList.add(new Season(SeasonTitle,StartDate,EndDate));
+
+                    teamList.add(new Team(teamName,color));
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -106,10 +105,10 @@ public class LeagueFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaa");
-            sRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-            SeasonAdapter SAdapter = new SeasonAdapter(SeasonList,getActivity());
-            sRecyclerview.setAdapter(SAdapter);
+
+            tRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            TeamAdapter tAdapter = new TeamAdapter(teamList,getActivity());
+            tRecyclerView.setAdapter(tAdapter);
 
 
         }
