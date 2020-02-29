@@ -15,20 +15,23 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class MoreFragment extends Fragment {
 
-    private CardView cvLogin;
-    private LinearLayout llFeedback;
+    private LinearLayout llLogin,llFeedback;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View fragmentMore = inflater.inflate(R.layout.fragment_more,container,false);
-        cvLogin=fragmentMore.findViewById(R.id.cv_login);
+        llLogin=fragmentMore.findViewById(R.id.ll_login);
         llFeedback=fragmentMore.findViewById(R.id.ll_feedback);
 
-        cvLogin.setOnClickListener(new View.OnClickListener() {
+        llLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Fragment loginFragment = new LoginFragment();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft =fm.beginTransaction();
+                ft.replace(R.id.frame_layout,loginFragment).commit();
                }
         });
         llFeedback.setOnClickListener(new View.OnClickListener() {
@@ -38,7 +41,7 @@ public class MoreFragment extends Fragment {
                 FragmentManager fm = getFragmentManager();
                 FragmentTransaction ft =fm.beginTransaction();
                 ft.replace(R.id.frame_layout,feedBack).commit();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,feedBack).commit();
+               // getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,feedBack).commit();
             }
         });
         return fragmentMore;

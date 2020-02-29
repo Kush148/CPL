@@ -8,7 +8,6 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cv_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="7dp"
@@ -16,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/ll_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -53,6 +53,7 @@
                 android:clickable="false" />
 
             <LinearLayout
+                android:id="@+id/ll_browse"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -121,6 +122,7 @@
                 android:clickable="false" />
 
             <LinearLayout
+                android:id="@+id/ll_about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
