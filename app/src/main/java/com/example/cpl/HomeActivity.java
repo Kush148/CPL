@@ -39,6 +39,10 @@ public class HomeActivity extends AppCompatActivity {
                         case R.id.action_more:
                             currentFragment=new MoreFragment();
                             break;
+
+                        case R.id.action_Season:
+                            currentFragment=new LeagueFragment();
+                            break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,currentFragment).commit();
                     return true;
