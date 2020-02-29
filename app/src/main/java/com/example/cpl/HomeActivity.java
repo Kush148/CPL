@@ -17,6 +17,10 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         btmNav=findViewById(R.id.bottom_nav);
+        Fragment currentFragment=new HomeFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,currentFragment).commit();
+
+
         btmNav.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
     }
@@ -28,6 +32,10 @@ public class HomeActivity extends AppCompatActivity {
                     Fragment currentFragment=null;
 
                     switch (item.getItemId()){
+                        case R.id.action_home:
+                            currentFragment=new HomeFragment();
+                            break;
+
                         case R.id.action_more:
                             currentFragment=new MoreFragment();
                             break;
