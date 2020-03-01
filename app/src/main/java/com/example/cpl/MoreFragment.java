@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class MoreFragment extends Fragment {
 
-    private LinearLayout llLogin,llFeedback;
+    private LinearLayout llLogin,llFeedback,llViewFeedback;
 
     @Nullable
     @Override
@@ -24,6 +24,7 @@ public class MoreFragment extends Fragment {
         View fragmentMore = inflater.inflate(R.layout.fragment_more,container,false);
         llLogin=fragmentMore.findViewById(R.id.ll_login);
         llFeedback=fragmentMore.findViewById(R.id.ll_feedback);
+        llViewFeedback=fragmentMore.findViewById(R.id.ll_viewFeedback);
 
         llLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +43,16 @@ public class MoreFragment extends Fragment {
                 FragmentTransaction ft =fm.beginTransaction();
                 ft.replace(R.id.frame_layout,feedBack).commit();
                // getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,feedBack).commit();
+            }
+        });
+
+        llViewFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment viewFeedBack = new ViewFeedbackFragment();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft =fm.beginTransaction();
+                ft.replace(R.id.frame_layout,viewFeedBack).commit();
             }
         });
         return fragmentMore;

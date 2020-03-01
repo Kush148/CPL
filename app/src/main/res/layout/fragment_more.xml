@@ -96,10 +96,10 @@
                     android:id="@+id/fb_icon"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:padding="2dp"
                     android:layout_marginStart="10dp"
                     android:src="@drawable/feedback"
                     app:civ_border_color="@color/white"
-
                     />
 
                 <TextView
@@ -122,6 +122,40 @@
                 android:clickable="false" />
 
             <LinearLayout
+                android:id="@+id/ll_viewFeedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+                    android:padding="2dp"
+                    android:src="@drawable/feedback"
+                    app:civ_border_color="@color/white"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_viewFb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:text="View Feedbacks"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="@color/grey"
+                android:clickable="false" />
+
+            <LinearLayout
                 android:id="@+id/ll_about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -131,6 +165,7 @@
                     android:id="@+id/about_icon"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:padding="2dp"
                     android:layout_marginStart="10dp"
                     android:src="@drawable/about_icon"
                     app:civ_border_color="@color/white"
