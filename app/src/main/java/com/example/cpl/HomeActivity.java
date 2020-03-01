@@ -21,7 +21,6 @@ public class HomeActivity extends AppCompatActivity {
         Fragment currentFragment = new HomeFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, currentFragment).commit();
 
-
         btmNav.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
     }
@@ -45,8 +44,6 @@ public class HomeActivity extends AppCompatActivity {
                         case R.id.action_more:
                             currentFragment = new MoreFragment();
                             break;
-
-
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, currentFragment).commit();
                     return true;
