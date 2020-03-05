@@ -16,4 +16,8 @@
         <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
     </style>
 
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">#0091EA</item>
+    </style>
+
 </resources>
