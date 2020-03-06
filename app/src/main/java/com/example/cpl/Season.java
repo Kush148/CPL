@@ -2,14 +2,24 @@ package com.example.cpl;
 
 public class Season {
 
+    int seasonId;
     String seasonName;
     String StartDate;
     String EndDate;
 
-    public Season(String seasonName, String startDate, String endDate) {
+    public Season(int seasonId, String seasonName, String startDate, String endDate) {
+        this.seasonId = seasonId;
         this.seasonName = seasonName;
         StartDate = startDate;
         EndDate = endDate;
+    }
+
+    public int getSeasonId() {
+        return seasonId;
+    }
+
+    public void setSeasonId(int seasonId) {
+        this.seasonId = seasonId;
     }
 
     public String getSeasonName() {
