@@ -5,12 +5,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,27 +31,48 @@ import java.util.List;
 public class SeasonFragment extends Fragment {
     View view;
     private RecyclerView sRecyclerview;
+    private ProgressBar progressBar;
     List<Season> SeasonList = new ArrayList<>();
+    FloatingActionButton fbSeason;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fregment_league, container, false);
-        sRecyclerview = (RecyclerView) view.findViewById(R.id.rc_SeasonId);
-        // get the reference of Button
+        view = inflater.inflate(R.layout.fragment_season, container, false);
+        sRecyclerview = view.findViewById(R.id.rc_SeasonId);
+        progressBar = view.findViewById(R.id.progressBar);
+        fbSeason = view.findViewById(R.id.fbSeason);
         new MyTask().execute();
-        return view;
 
+//        if (Constants.loggedInUserId.equals("1")) {
+//            fbSeason.setVisibility(View.VISIBLE);
+//        }
+        fbSeason.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment createSeason = new CreateSeasonFragment();
+                getFragmentManager().beginTransaction().replace(R.id.frame_layout, createSeason).commit();
+
+            }
+        });
+        return view;
     }
+
     private class MyTask extends AsyncTask<Void, Void, Void> {
         String return_msg;
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected Void doInBackground(Void... voids) {
             URL url = null;
-            try {
 
-                url = new URL("http://" + Constants.localHost+"/" + Constants.projectPath + "main/viewSeason");
+            try {
+                url = new URL("http://" + Constants.localHost + "/" + Constants.projectPath + "main/viewSeason");
 
                 HttpURLConnection client = null;
 
@@ -85,13 +109,12 @@ public class SeasonFragment extends Fragment {
                 JSONObject singleSeason;
                 for (int i = 0; i < SeasonArray.length(); i++) {
                     singleSeason = SeasonArray.getJSONObject(i);
-                    int seasonId=singleSeason.getInt("SeasonId");
                     String SeasonTitle = singleSeason.getString("Season Title");
                     String Description = singleSeason.getString("Description");
                     String StartDate = singleSeason.getString("Start Date");
                     String EndDate = singleSeason.getString("End Date");
 
-                    SeasonList.add(new Season(seasonId,SeasonTitle,StartDate,EndDate));
+                    SeasonList.add(new Season(SeasonTitle, StartDate, EndDate));
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -101,17 +124,15 @@ public class SeasonFragment extends Fragment {
                 e.printStackTrace();
             }
             return null;
-
         }
 
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaa");
             sRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-            SeasonAdapter SAdapter = new SeasonAdapter(SeasonList,getActivity());
+            SeasonAdapter SAdapter = new SeasonAdapter(SeasonList, getActivity());
             sRecyclerview.setAdapter(SAdapter);
-
+            progressBar.setVisibility(View.INVISIBLE);
 
         }
     }

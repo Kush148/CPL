@@ -7,8 +7,8 @@ public class Season {
     String StartDate;
     String EndDate;
 
-    public Season(int seasonId, String seasonName, String startDate, String endDate) {
-        this.seasonId = seasonId;
+    public Season(String seasonName, String startDate, String endDate) {
+
         this.seasonName = seasonName;
         StartDate = startDate;
         EndDate = endDate;
