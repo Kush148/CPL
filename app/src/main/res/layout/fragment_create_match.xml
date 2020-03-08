@@ -59,28 +59,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <EditText
+
+
+            <Spinner
                 android:id="@+id/etTeamA"
-                android:drawablePadding="20dp"
-                android:hint="RBC"
-                android:maxLines="1"
-                android:inputType="text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+
+                />
 
             <TextView
                 android:text="Team B"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <EditText
+
+            <Spinner
                 android:id="@+id/etTeamB"
-                android:drawablePadding="20dp"
-                android:hint="RBC"
-                android:maxLines="1"
-                android:inputType="text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+
+                />
 
             <TextView
                 android:layout_marginTop="5dp"
@@ -109,36 +108,6 @@
                 android:id="@+id/etVenue"
                 android:drawablePadding="20dp"
                 android:hint="Surat"
-                android:maxLines="1"
-                android:inputType="text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_marginTop="5dp"
-                android:text="Result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <EditText
-                android:id="@+id/etResult"
-                android:drawablePadding="20dp"
-                android:hint="win"
-                android:maxLines="1"
-                android:inputType="text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_marginTop="5dp"
-                android:text="Result Description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <EditText
-                android:id="@+id/etResultDescription"
-                android:drawablePadding="20dp"
-                android:hint="none"
                 android:maxLines="1"
                 android:inputType="text"
                 android:layout_width="match_parent"

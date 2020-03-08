@@ -6,15 +6,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,29 +28,31 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class CreateMatchFragment extends Fragment {
 
-    EditText etMatchNo,etTeamA,etTeamB,etDate,etVenue,etResult,etResultDescription;
+    EditText etMatchNo,etDate,etVenue,etResult,etResultDescription;
     Button btnCreateMatch;
+    Spinner etTeamA,etTeamB;
     int matchNo,y,m,d;
     String teamA,teamB,date,venue,result,resultDescription;
     String  DOB;
-
+    public ArrayList<String> TeamList = new ArrayList<>();
+    private String teamAlist = null;
+    private String teamBlist = null;
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragmentLogin = inflater.inflate(R.layout.fragment_create_match, container, false);
 
 
         etMatchNo=fragmentLogin.findViewById(R.id.etMatchNo);
-        etTeamA=fragmentLogin.findViewById(R.id.etTeamA);
-        etTeamB=fragmentLogin.findViewById(R.id.etTeamB);
+        etTeamA=(Spinner)fragmentLogin.findViewById(R.id.etTeamA);
+        etTeamB=(Spinner)fragmentLogin.findViewById(R.id.etTeamB);
         etDate=fragmentLogin.findViewById(R.id.etDate);
         etVenue=fragmentLogin.findViewById(R.id.etVenue);
-        etResult=fragmentLogin.findViewById(R.id.etResult);
-        etResultDescription=fragmentLogin.findViewById(R.id.etResultDescription);
         btnCreateMatch=fragmentLogin.findViewById(R.id.btnCreateMatch);
-
+        new MyTask2().execute();
         final Calendar calendar=Calendar.getInstance();
         etDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,12 +94,8 @@ public class CreateMatchFragment extends Fragment {
             public void onClick(View view) {
 
                 matchNo=Integer.parseInt(etMatchNo.getText().toString());
-                teamA = etTeamA.getText().toString();
-                teamB = etTeamB.getText().toString();
                 date = etDate.getText().toString();
                 venue = etVenue.getText().toString();
-                result = etResult.getText().toString();
-                resultDescription = etResultDescription.getText().toString();
 
                 new MyTask().execute();
 
@@ -103,6 +105,120 @@ public class CreateMatchFragment extends Fragment {
         return fragmentLogin;
     }
 
+    private class MyTask2 extends AsyncTask<Void, Void, Void> {
+        String return_msg;
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            URL url = null;
+            try {
+
+                url = new URL("http://" + Constants.localHost+"/" + Constants.projectPath +"main/viewTeams");
+
+                HttpURLConnection client = null;
+
+                client = (HttpURLConnection) url.openConnection();
+
+                client.setRequestMethod("GET");
+
+                int responseCode = client.getResponseCode();
+
+                System.out.println("\n Sending 'GET' request to URL : " + url);
+
+                System.out.println("Response Code : " + responseCode);
+
+                InputStreamReader myInput = new InputStreamReader(client.getInputStream());
+
+                BufferedReader in = new BufferedReader(myInput);
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                    System.out.println("while " + response);
+                }
+                in.close();
+
+                //print result
+                System.out.println(response.toString());
+
+                JSONObject mainObject = new JSONObject(response.toString());
+                return_msg = mainObject.getString("Status");
+
+                JSONArray teamManagerArray = mainObject.getJSONArray("Teams");
+                JSONObject singlename;
+                for (int i = 0; i < teamManagerArray.length(); i++) {
+                    singlename = teamManagerArray.getJSONObject(i);
+                    String teamName = singlename.getString("teamName");
+
+                    System.out.println(teamName);
+                    TeamList.add(teamName);
+                    System.out.println(TeamList);
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            ArrayAdapter SAdapter = new ArrayAdapter(getContext(),R.layout.single_spinnerdata,TeamList);
+            SAdapter.setDropDownViewResource(R.layout.single_spinnerdata);
+            etTeamA.setAdapter(SAdapter);
+            etTeamB.setAdapter(SAdapter);
+
+            etTeamA.setOnItemSelectedListener(new MyOnItemSelectedListener());
+            etTeamB.setOnItemSelectedListener(new MyOnItemSelectedListener());
+
+        }
+    }
+
+    private class MyOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            String selectedItem = parent.getItemAtPosition(position).toString();
+
+            //check which spinner triggered the listener
+            switch (parent.getId()) {
+                //country spinner
+                case R.id.etTeamA:
+                    //make sure the country was already selected during the onCreate
+                    if (teamAlist != null) {
+                        Toast.makeText(parent.getContext(), selectedItem,
+                                Toast.LENGTH_LONG).show();
+                    }
+                    teamAlist = selectedItem;
+
+                    break;
+                case R.id.etTeamB:
+                    //make sure the country was already selected during the onCreate
+                    if (teamBlist != null) {
+                        Toast.makeText(parent.getContext(), selectedItem,
+                                Toast.LENGTH_LONG).show();
+                    }
+                    teamBlist = selectedItem;
+
+                    break;
+            }
+        }
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    }
+
+
+
+
     private class MyTask extends AsyncTask<Void, Void, Void> {
         String return_msg;
 
@@ -111,7 +227,7 @@ public class CreateMatchFragment extends Fragment {
             URL url = null;
             try {
 
-                url = new URL("http://" + Constants.localHost+"/" + Constants.projectPath + "leagueManager/createMatch"+"&"+matchNo+"&"+teamA+"&"+teamB+"&"+date+"&"+venue+"&"+result+"&"+resultDescription+"&"+1+"&"+1);
+                url = new URL("http://" + Constants.localHost+"/" + Constants.projectPath + "leagueManager/createMatch"+"&"+matchNo+"&"+teamAlist+"&"+teamBlist+"&"+date+"&"+venue+"&"+null+"&"+null+"&"+1+"&"+1);
 
                 HttpURLConnection client = null;
 
