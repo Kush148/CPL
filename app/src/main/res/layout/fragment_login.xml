@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gr_one">
@@ -22,56 +21,79 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="291dp"
-        android:layout_height="148dp"
-        android:layout_marginTop="60dp"
+        android:layout_width="292dp"
+        android:layout_height="106dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
         android:contentDescription="logo"
         android:src="@drawable/ic_account"
+        app:layout_constraintBottom_toTopOf="@+id/etEmail"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.69" />
 
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/et_bg"
         android:hint="@string/email_address"
         android:inputType="textEmailAddress"
         android:padding="16dp"
         android:textColor="#ffffff"
         android:textColorHint="@color/login_form_details"
+        app:layout_constraintBottom_toTopOf="@+id/etPassword"
         app:layout_constraintEnd_toStartOf="@id/guideline_right"
         app:layout_constraintStart_toStartOf="@id/guideline_left"
         app:layout_constraintTop_toBottomOf="@+id/icon" />
+
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/et_bg"
-        android:drawableRight="@drawable/ic_eye"
+        android:drawableRight="@drawable/ic_blue_eye"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:padding="16dp"
         android:textColor="#ffffff"
         android:textColorHint="@color/login_form_details"
+        app:layout_constraintBottom_toTopOf="@+id/rgManagerType"
         app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/guideline_left"
         app:layout_constraintTop_toBottomOf="@+id/etEmail" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="188dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btn_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/btn_bg"
         android:text="@string/login_now"
         android:textAllCaps="false"
         android:textColor="#ffffff"
+        app:layout_constraintBottom_toTopOf="@+id/reset_password"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
@@ -82,12 +104,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
         android:text="@string/forgot_password"
         android:textColor="@color/login_form_details"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideline_right"
-        app:layout_constraintHorizontal_bias="0.542"
         app:layout_constraintStart_toStartOf="@id/guideline_left"
         app:layout_constraintTop_toBottomOf="@id/btn_login"
         app:layout_constraintVertical_bias="0.034" />
@@ -97,33 +119,34 @@
         android:layout_width="347dp"
         android:layout_height="56dp"
         android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginBottom="20dp"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/btn_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPassword">
 
         <RadioButton
             android:id="@+id/rb_leagueManager"
-            android:theme="@style/MyRaidoButton"
-            android:layout_width="167dp"
+            android:layout_width="wrap_content"
+            android:checked="true"
             android:layout_height="wrap_content"
-            android:text="League Manager"
             android:layout_marginLeft="10dp"
+            android:text="League Manager"
             android:textColor="#ffffff"
-            android:textSize="17dp"/>
+            android:textSize="17dp"
+            android:theme="@style/MyRaidoButton" />
 
         <RadioButton
             android:id="@+id/rb_teamManager"
-            android:theme="@style/MyRaidoButton"
             android:layout_width="match_parent"
-            android:layout_height="47dp"
+            android:layout_height="wrap_content"
             android:text="Team Manager"
             android:textColor="#ffffff"
-            android:textSize="17dp" />
+            android:textSize="17dp"
+            android:theme="@style/MyRaidoButton" />
     </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

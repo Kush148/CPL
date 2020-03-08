@@ -14,8 +14,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class MoreFragment extends Fragment {
+    private LinearLayout llLogin,llFeedback,llViewFeedback,llLogout,llAbout;
+    private View vLogin,vFeedback,vViewFeedback,vLogout;
+    private SharedPref pref;
 
-    private LinearLayout llLogin,llFeedback,llViewFeedback,llBrowsePlayer;
 
     @Nullable
     @Override
@@ -25,8 +27,27 @@ public class MoreFragment extends Fragment {
         llLogin=fragmentMore.findViewById(R.id.ll_login);
         llFeedback=fragmentMore.findViewById(R.id.ll_feedback);
         llViewFeedback=fragmentMore.findViewById(R.id.ll_viewFeedback);
-        llBrowsePlayer=fragmentMore.findViewById(R.id.ll_browse);
+        llLogout=fragmentMore.findViewById(R.id.ll_logout);
+        llAbout=fragmentMore.findViewById(R.id.ll_about);
+        vLogin=fragmentMore.findViewById(R.id.v_login);
+        vFeedback=fragmentMore.findViewById(R.id.v_feedback);
+        vViewFeedback=fragmentMore.findViewById(R.id.v_viewFeedback);
+        vLogout=fragmentMore.findViewById(R.id.v_logout);
 
+        pref=new SharedPref(this.getActivity());
+        Constants.userId = pref.getId();
+        Constants.userType = pref.getManagerType();
+
+        if(Constants.userId.equals("1")&&Constants.userType.equals("LeagueManager")){
+            llLogin.setVisibility(View.GONE);
+            vLogin.setVisibility(View.GONE);
+            llFeedback.setVisibility(View.GONE);
+            vFeedback.setVisibility(View.GONE);
+            llViewFeedback.setVisibility(View.VISIBLE);
+            vViewFeedback.setVisibility(View.VISIBLE);
+            llLogout.setVisibility(View.VISIBLE);
+            vLogout.setVisibility(View.VISIBLE);
+        }
 
         llLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,7 +56,7 @@ public class MoreFragment extends Fragment {
                 FragmentManager fm = getFragmentManager();
                 FragmentTransaction ft =fm.beginTransaction();
                 ft.replace(R.id.frame_layout,loginFragment).commit();
-               }
+            }
         });
         llFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,10 +65,8 @@ public class MoreFragment extends Fragment {
                 FragmentManager fm = getFragmentManager();
                 FragmentTransaction ft =fm.beginTransaction();
                 ft.replace(R.id.frame_layout,feedBack).commit();
-               // getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,feedBack).commit();
             }
         });
-
         llViewFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,18 +76,26 @@ public class MoreFragment extends Fragment {
                 ft.replace(R.id.frame_layout,viewFeedBack).commit();
             }
         });
-
-        llBrowsePlayer.setOnClickListener(new View.OnClickListener() {
+        llLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment browse = new BrowsePlayers();
+                pref.logout();
+                Fragment homeFragment = new HomeFragment();
                 FragmentManager fm = getFragmentManager();
                 FragmentTransaction ft =fm.beginTransaction();
-                ft.replace(R.id.frame_layout,browse).commit();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,browse).commit();
+                ft.replace(R.id.frame_layout,homeFragment).commit();
             }
         });
 
+//        llAbout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Fragment aboutFragment = new AboutFragment();
+//                FragmentManager fm = getFragmentManager();
+//                FragmentTransaction ft =fm.beginTransaction();
+//                ft.replace(R.id.frame_layout,aboutFragment).commit();
+//            }
+//        });
         return fragmentMore;
     }
 }
