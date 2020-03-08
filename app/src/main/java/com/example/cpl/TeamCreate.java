@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class TeamCreate extends Fragment {
 
     EditText Teamname,Teamcolor;
     Button btn;
+    ProgressBar progressBar;
     String teamname,teamcolor;
    Spinner spinner;
    int teamManagerid;
@@ -56,6 +58,7 @@ public class TeamCreate extends Fragment {
         Teamname = fragmentCreateTeam.findViewById(R.id.teamname);
         Teamcolor = fragmentCreateTeam.findViewById(R.id.teamcolor);
         spinner=(Spinner)fragmentCreateTeam.findViewById(R.id.teammanager);
+        progressBar = fragmentCreateTeam.findViewById(R.id.progressBar);
         btn =fragmentCreateTeam.findViewById(R.id.btncreateteam);
         // spinner]
         new MyTask2().execute();
@@ -193,6 +196,12 @@ public class TeamCreate extends Fragment {
 
     private class MyTask extends AsyncTask<Void , Void , Void> {
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            btn.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        @Override
         protected Void doInBackground(Void... voids) {
             URL url = null;
             try {
@@ -241,6 +250,9 @@ public class TeamCreate extends Fragment {
         }
         @Override
         protected void onPostExecute(Void result){
+
+            btn.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.INVISIBLE);
 
             super.onPostExecute(result);
             System.out.println("executed");
