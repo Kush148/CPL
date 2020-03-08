@@ -85,11 +85,12 @@ public class TeamFragment extends Fragment {
                 JSONObject singleSeason;
                 for (int i = 0; i < SeasonArray.length(); i++) {
                     singleSeason = SeasonArray.getJSONObject(i);
+                    int teamId=singleSeason.getInt("teamId");
                     String teamName = singleSeason.getString("teamName");
                     String color = singleSeason.getString("teamColor");
 
 
-                    teamList.add(new Team(teamName,color));
+                    teamList.add(new Team(teamId,teamName,color));
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();

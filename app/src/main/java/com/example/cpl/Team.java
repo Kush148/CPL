@@ -2,9 +2,23 @@ package com.example.cpl;
 
 public class Team {
 
+    int teamId;
     String teamName;
     String color;
 
+    public Team(int teamId, String teamName, String color) {
+        this.teamId = teamId;
+        this.teamName = teamName;
+        this.color = color;
+    }
+
+    public int getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(int teamId) {
+        this.teamId = teamId;
+    }
 
     public String getTeamName() {
         return teamName;
@@ -22,10 +36,4 @@ public class Team {
         this.color = color;
     }
 
-
-
-    public Team(String teamName, String color) {
-        this.teamName = teamName;
-        this.color = color;
-    }
 }

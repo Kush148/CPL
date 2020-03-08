@@ -4,9 +4,16 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -15,6 +22,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder> {
     List<Team> Listofteam;
     Context context;
     Team teamlist;
+    static int teamId,position;
 
     public TeamAdapter(List<Team> listofteam, Context context) {
         Listofteam = listofteam;
@@ -25,7 +33,28 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.list_item_team, parent, false);
-        return new TeamAdapter.ViewHolder(view);
+
+        final TeamAdapter.ViewHolder sholder = new TeamAdapter.ViewHolder(view);
+        sholder.item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "pos" + String.valueOf(sholder.getAdapterPosition()), Toast.LENGTH_LONG).show();
+
+                position = (sholder.getAdapterPosition());
+                System.out.println(position);
+
+                teamId = Listofteam.get(position).getTeamId();
+                // one fragment to another fragment
+                Fragment matchFragment=new ViewSingleTeamInfoFragment();
+                FragmentManager fragmentManager = ((FragmentActivity) v.getContext()).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frame_layout,matchFragment).commit();
+
+            }
+        });
+
+        return sholder;
+
 
     }
 
@@ -44,9 +73,12 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        RelativeLayout item;
         TextView teamName,teamColor;
+        ImageView imgDelete;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            item=(RelativeLayout)itemView.findViewById(R.id.rl1);
             teamName = itemView.findViewById(R.id.teamname);
             teamColor = itemView.findViewById(R.id.tcolor);
         }
