@@ -75,6 +75,9 @@
             android:drawablePadding="20dp"
             android:id="@+id/etStartDate"
             android:hint="yyyy/MM/dd"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:inputType="none"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -88,6 +91,9 @@
             android:drawablePadding="20dp"
             android:id="@+id/etEndDate"
             android:hint="yyyy/MM/dd"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:inputType="none"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
