@@ -65,6 +65,8 @@
                 android:drawablePadding="20dp"
                 android:hint="Charls Reddy"
                 android:id="@+id/userName"
+                android:maxLines="1"
+                android:inputType="textPersonName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -77,6 +79,8 @@
             <EditText
                 android:drawablePadding="20dp"
                 android:id="@+id/email"
+                android:maxLines="1"
+                android:inputType="textEmailAddress"
                 android:hint="charlsreddy56@gmail.com"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -90,6 +94,7 @@
             <EditText
                 android:drawablePadding="20dp"
                 android:id="@+id/password"
+                android:maxLines="1"
                 android:inputType="numberPassword"
                 android:hint="********"
                 android:layout_width="match_parent"
@@ -116,7 +121,9 @@
             <EditText
                 android:drawablePadding="20dp"
                 android:id="@+id/contact"
-                android:hint="514-678-5643"
+                android:maxLines="1"
+                android:inputType="phone"
+                android:hint="5146785643"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -126,7 +133,7 @@
                 android:id="@+id/addManger"
                 android:background="@drawable/background_grad"
                 android:textAllCaps="false"
-                android:text="+ ADD"
+                android:text="ADD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

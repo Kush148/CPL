@@ -31,7 +31,8 @@
                 android:layout_marginLeft="6dp"
                 android:drawableRight="@drawable/ic_search_black_24dp"
                 android:ems="10"
-                android:hint="Search Player"
+                android:maxLines="1"
+                android:hint="Enter Player Name"
                 android:inputType="textPersonName" />
 
 

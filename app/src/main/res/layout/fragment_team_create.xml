@@ -51,6 +51,8 @@
                 android:drawablePadding="20dp"
                 android:id="@+id/teamname"
                 android:hint="Super King"
+                android:maxLines="1"
+                android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -64,6 +66,8 @@
                 android:drawablePadding="20dp"
                 android:id="@+id/teamcolor"
                 android:hint="Yellow"
+                android:maxLines="1"
+                android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
