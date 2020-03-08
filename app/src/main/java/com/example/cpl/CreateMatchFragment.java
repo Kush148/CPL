@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ import java.util.Calendar;
 
 public class CreateMatchFragment extends Fragment {
 
+    ProgressBar progressBar;
     EditText etMatchNo,etDate,etVenue,etResult,etResultDescription;
     Button btnCreateMatch;
     Spinner etTeamA,etTeamB;
@@ -42,10 +44,11 @@ public class CreateMatchFragment extends Fragment {
     public ArrayList<String> TeamList = new ArrayList<>();
     private String teamAlist = null;
     private String teamBlist = null;
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragmentLogin = inflater.inflate(R.layout.fragment_create_match, container, false);
 
-
+        progressBar = fragmentLogin.findViewById(R.id.progressBar);
         etMatchNo=fragmentLogin.findViewById(R.id.etMatchNo);
         etTeamA=(Spinner)fragmentLogin.findViewById(R.id.etTeamA);
         etTeamB=(Spinner)fragmentLogin.findViewById(R.id.etTeamB);
@@ -223,6 +226,13 @@ public class CreateMatchFragment extends Fragment {
         String return_msg;
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            btnCreateMatch.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected Void doInBackground(Void... voids) {
             URL url = null;
             try {
@@ -271,6 +281,9 @@ public class CreateMatchFragment extends Fragment {
         }
 
         protected void onPostExecute(Void result) {
+
+            btnCreateMatch.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.INVISIBLE);
 
             if (return_msg.equals("Match Created")) {
                 Toast.makeText(getActivity(), "Match Created", Toast.LENGTH_SHORT).show();
