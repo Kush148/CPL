@@ -110,7 +110,7 @@ public class FeedbackFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
 
-            if(return_msg.equalsIgnoreCase("Feedback Sent Successfully")){
+            if(return_msg.equalsIgnoreCase("Feedback Sent")){
                 Toast.makeText(getActivity(),"Feedback Sent Successfully",Toast.LENGTH_SHORT).show();
             }else{
                 Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();

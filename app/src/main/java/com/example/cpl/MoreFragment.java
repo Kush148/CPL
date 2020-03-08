@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class MoreFragment extends Fragment {
-    private LinearLayout llLogin,llFeedback,llViewFeedback,llLogout,llAbout;
+    private LinearLayout llLogin,llBrowserPlayers,llFeedback,llViewFeedback,llLogout,llAbout;
     private View vLogin,vFeedback,vViewFeedback,vLogout;
     private SharedPref pref;
 
@@ -25,6 +25,7 @@ public class MoreFragment extends Fragment {
 
         View fragmentMore = inflater.inflate(R.layout.fragment_more,container,false);
         llLogin=fragmentMore.findViewById(R.id.ll_login);
+        llBrowserPlayers=fragmentMore.findViewById(R.id.ll_browse);
         llFeedback=fragmentMore.findViewById(R.id.ll_feedback);
         llViewFeedback=fragmentMore.findViewById(R.id.ll_viewFeedback);
         llLogout=fragmentMore.findViewById(R.id.ll_logout);
@@ -58,6 +59,17 @@ public class MoreFragment extends Fragment {
                 ft.replace(R.id.frame_layout,loginFragment).commit();
             }
         });
+
+        llBrowserPlayers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment browsePlayers = new BrowsePlayers();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft =fm.beginTransaction();
+                ft.replace(R.id.frame_layout,browsePlayers).commit();
+            }
+        });
+
         llFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,15 +99,15 @@ public class MoreFragment extends Fragment {
             }
         });
 
-//        llAbout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Fragment aboutFragment = new AboutFragment();
-//                FragmentManager fm = getFragmentManager();
-//                FragmentTransaction ft =fm.beginTransaction();
-//                ft.replace(R.id.frame_layout,aboutFragment).commit();
-//            }
-//        });
+        llAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment aboutFragment = new AboutFragment();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft =fm.beginTransaction();
+                ft.replace(R.id.frame_layout,aboutFragment).commit();
+            }
+        });
         return fragmentMore;
     }
 }

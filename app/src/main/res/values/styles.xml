@@ -9,8 +9,8 @@
     </style>
 
     <style name="MyRaidoButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
-        <item name="android:colorControlNormal">#ffffff</item>
-        <item name="android:colorControlActivated">#ffffff</item>
+        <item name="android:colorControlNormal">#333333</item>
+        <item name="android:colorControlActivated">#333333</item>
         <item name="android:colorControlHighlight">#0091EA</item>
         <item name="android:textColorPrimaryDisableOnly">#00838f</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>

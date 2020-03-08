@@ -48,12 +48,12 @@ public class LoginFragment extends Fragment {
 
         etEmail = fragmentLogin.findViewById(R.id.etEmail);
         etPassword = fragmentLogin.findViewById(R.id.etPassword);
-        btnLogin = fragmentLogin.findViewById(R.id.btn_login);
+        btnLogin = fragmentLogin.findViewById(R.id.btnLogin);
         progressBar = fragmentLogin.findViewById(R.id.progressBar);
-        tvForgotPass = fragmentLogin.findViewById(R.id.reset_password);
+        tvForgotPass = fragmentLogin.findViewById(R.id.tvForgotPassword);
         rgManagerType = fragmentLogin.findViewById(R.id.rgManagerType);
         rbLeagueManager = fragmentLogin.findViewById(R.id.rb_leagueManager);
-        rbTeamManager = fragmentLogin.findViewById(R.id.rb_teamManager);
+        rbTeamManager = fragmentLogin.findViewById(R.id.rb_TeamManager);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
