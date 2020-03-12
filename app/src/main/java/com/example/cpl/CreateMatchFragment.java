@@ -3,6 +3,7 @@ package com.example.cpl;
 import android.app.DatePickerDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,77 +36,98 @@ import java.util.Calendar;
 public class CreateMatchFragment extends Fragment {
 
     ProgressBar progressBar;
-    EditText etMatchNo,etDate,etVenue,etResult,etResultDescription;
+    EditText etMatchNo,etDate,etVenue;
     Button btnCreateMatch;
     Spinner etTeamA,etTeamB;
-    int matchNo,y,m,d;
-    String teamA,teamB,date,venue,result,resultDescription;
-    String  DOB;
+    int year,month,day;
+    DatePickerDialog.OnDateSetListener mDOBListener;
+    String date,venue,result,matchNumber;
     public ArrayList<String> TeamList = new ArrayList<>();
     private String teamAlist = null;
     private String teamBlist = null;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View fragmentLogin = inflater.inflate(R.layout.fragment_create_match, container, false);
+        View fragmentMatch = inflater.inflate(R.layout.fragment_create_match, container, false);
 
-        progressBar = fragmentLogin.findViewById(R.id.progressBar);
-        etMatchNo=fragmentLogin.findViewById(R.id.etMatchNo);
-        etTeamA=(Spinner)fragmentLogin.findViewById(R.id.etTeamA);
-        etTeamB=(Spinner)fragmentLogin.findViewById(R.id.etTeamB);
-        etDate=fragmentLogin.findViewById(R.id.etDate);
-        etVenue=fragmentLogin.findViewById(R.id.etVenue);
-        btnCreateMatch=fragmentLogin.findViewById(R.id.btnCreateMatch);
+        progressBar = fragmentMatch.findViewById(R.id.progressBar);
+        etMatchNo=fragmentMatch.findViewById(R.id.etMatchNo);
+        etTeamA=(Spinner)fragmentMatch.findViewById(R.id.etTeamA);
+        etTeamB=(Spinner)fragmentMatch.findViewById(R.id.etTeamB);
+        etDate=fragmentMatch.findViewById(R.id.etDate);
+        etVenue=fragmentMatch.findViewById(R.id.etVenue);
+        btnCreateMatch=fragmentMatch.findViewById(R.id.btnCreateMatch);
         new MyTask2().execute();
         final Calendar calendar=Calendar.getInstance();
+
+        Calendar cal = Calendar.getInstance();
+        year = cal.get(Calendar.YEAR);
+        month = cal.get(Calendar.MONTH);
+        day = cal.get(Calendar.DAY_OF_MONTH);
+
         etDate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-                y=calendar.get(Calendar.YEAR);
-                m=calendar.get(Calendar.MONTH);
-                m=calendar.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog datePickerDialog=new DatePickerDialog(getActivity(), R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-
-                        String month="",day="";
-                        if (monthOfYear < 10) {
-                            month = "0" + (monthOfYear + 1);
-                        } else {
-                            month = String.valueOf(monthOfYear + 1);
-                        }
-                        if (dayOfMonth < 10) {
-                            day = "0" + dayOfMonth;
-                        } else {
-                            day = String.valueOf(dayOfMonth);
-                        }
-
-                       DOB= year+"-"+(month)+"-"+day;
-                       etDate.setText(DOB);
-                    }
-                },y,m,d);
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-                datePickerDialog.show();
+            public void onClick(View view) {
+                DatePickerDialog dp = new DatePickerDialog(getActivity(),mDOBListener,year, month, day);
+                dp.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                dp.show();
             }
         });
+        mDOBListener = new DatePickerDialog.OnDateSetListener() {
+            String month,day;
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int m, int d) {
+                if (m < 10) {
+                    month = "0" + (m + 1);
+                } else {
+                    month = String.valueOf(m + 1);
+                }
+                if (d < 10) {
+                    day = "0" + d;
+                } else {
+                    day = String.valueOf(d);
+                }
+                String date = year +"-"+ month +"-"+ day;
+                etDate.setText(date);
+
+            }
+        };
 
         btnCreateMatch.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View view) {
-
-                matchNo=Integer.parseInt(etMatchNo.getText().toString());
-                date = etDate.getText().toString();
-                venue = etVenue.getText().toString();
-
-                new MyTask().execute();
-
+                if(validateInput()) {
+                    new MyTask().execute();
+                }
             }
         });
+        return fragmentMatch;
+    }
 
-        return fragmentLogin;
+    private boolean validateInput() {
+
+        matchNumber = (etMatchNo.getText().toString().trim());
+        date = (etDate.getText().toString().trim());
+        venue = (etVenue.getText().toString().trim());
+
+        if (matchNumber.isEmpty()) {
+            etMatchNo.requestFocus();
+            etMatchNo.setError("Match number can't be empty");
+            return false;
+        }  if (date.isEmpty()) {
+            etDate.requestFocus();
+            etDate.setError("Date can't be empty");
+            return false;
+        }   if (venue.isEmpty()) {
+            etVenue.requestFocus();
+            etVenue.setError("Venue can't be empty");
+            return false;
+        }
+        else {
+            etMatchNo.setError(null);
+            etDate.setError(null);
+            etVenue.setError(null);
+            return true;
+        }
     }
 
     private class MyTask2 extends AsyncTask<Void, Void, Void> {
@@ -115,7 +137,6 @@ public class CreateMatchFragment extends Fragment {
         protected Void doInBackground(Void... voids) {
             URL url = null;
             try {
-
                 url = new URL("http://" + Constants.localHost+"/" + Constants.projectPath +"main/viewTeams");
 
                 HttpURLConnection client = null;
@@ -135,7 +156,6 @@ public class CreateMatchFragment extends Fragment {
                 BufferedReader in = new BufferedReader(myInput);
                 String inputLine;
                 StringBuffer response = new StringBuffer();
-
 
                 while ((inputLine = in.readLine()) != null) {
                     response.append(inputLine);
@@ -167,7 +187,6 @@ public class CreateMatchFragment extends Fragment {
                 e.printStackTrace();
             }
             return null;
-
         }
 
         @Override
@@ -178,10 +197,8 @@ public class CreateMatchFragment extends Fragment {
             SAdapter.setDropDownViewResource(R.layout.single_spinnerdata);
             etTeamA.setAdapter(SAdapter);
             etTeamB.setAdapter(SAdapter);
-
             etTeamA.setOnItemSelectedListener(new MyOnItemSelectedListener());
             etTeamB.setOnItemSelectedListener(new MyOnItemSelectedListener());
-
         }
     }
 
@@ -190,37 +207,26 @@ public class CreateMatchFragment extends Fragment {
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             String selectedItem = parent.getItemAtPosition(position).toString();
 
-            //check which spinner triggered the listener
             switch (parent.getId()) {
-                //country spinner
                 case R.id.etTeamA:
-                    //make sure the country was already selected during the onCreate
                     if (teamAlist != null) {
                         Toast.makeText(parent.getContext(), selectedItem,
                                 Toast.LENGTH_LONG).show();
                     }
                     teamAlist = selectedItem;
-
                     break;
                 case R.id.etTeamB:
-                    //make sure the country was already selected during the onCreate
                     if (teamBlist != null) {
                         Toast.makeText(parent.getContext(), selectedItem,
                                 Toast.LENGTH_LONG).show();
                     }
                     teamBlist = selectedItem;
-
                     break;
             }
         }
         @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-        }
+        public void onNothingSelected(AdapterView<?> parent) { }
     }
-
-
-
 
     private class MyTask extends AsyncTask<Void, Void, Void> {
         String return_msg;
@@ -236,8 +242,7 @@ public class CreateMatchFragment extends Fragment {
         protected Void doInBackground(Void... voids) {
             URL url = null;
             try {
-
-                url = new URL("http://" + Constants.localHost+"/" + Constants.projectPath + "leagueManager/createMatch"+"&"+matchNo+"&"+teamAlist+"&"+teamBlist+"&"+date+"&"+venue+"&"+null+"&"+null+"&"+1+"&"+1);
+                url = new URL("http://" + Constants.localHost+"/" + Constants.projectPath + "leagueManager/createMatch"+"&"+matchNumber+"&"+teamAlist+"&"+teamBlist+"&"+date+"&"+venue+"&"+null+"&"+null+"&"+1+"&"+1);
 
                 HttpURLConnection client = null;
 
@@ -277,7 +282,6 @@ public class CreateMatchFragment extends Fragment {
                 e.printStackTrace();
             }
             return null;
-
         }
 
         protected void onPostExecute(Void result) {
@@ -287,12 +291,10 @@ public class CreateMatchFragment extends Fragment {
 
             if (return_msg.equals("Match Created")) {
                 Toast.makeText(getActivity(), "Match Created", Toast.LENGTH_SHORT).show();
-                 } else {
-                Toast.makeText(getActivity(), "Something error occurred", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
             }
             super.onPostExecute(result);
         }
     }
-
-
-    }
+}
