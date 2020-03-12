@@ -41,6 +41,9 @@ public class HomeActivity extends AppCompatActivity {
                         case R.id.action_team:
                             currentFragment = new TeamFragment();
                             break;
+                        case R.id.action_points:
+                            currentFragment = new PointTable();
+                            break;
                         case R.id.action_more:
                             currentFragment = new MoreFragment();
                             break;
