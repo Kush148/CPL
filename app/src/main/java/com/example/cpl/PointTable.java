@@ -176,7 +176,7 @@ public class PointTable extends Fragment {
             URL url = null;
             try {
 
-                url = new URL("http://192.168.2.30:8080/WebServicesCPL/cpl/main/viewPointsTable&"+val);
+                url = new URL("http://" + Constants.localHost + "/" + Constants.projectPath +"main/viewPointsTable&"+val);
 
                 HttpURLConnection client = null;
 
