@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,8 +31,9 @@ import java.util.List;
 
 public class ViewSingleTeamInfoFragment extends Fragment {
 
-    ImageView editImage,saveImage;
-    TextView tvTeamName,tvTeamColor,tvManagerName,tvContact;
+    ProgressBar progressBar;
+    ImageView editImage,saveImage,removeImage;
+    TextView tvTeamName,tvTeamColor,tvManagerName,tvContact,tvNoData;
     String teamName,teamColor,userName,contactNumber,newContactNumber;
     RecyclerView rvPlayerList;
     List<ViewSingleTeamInfo> teamInfoList = new ArrayList<>();
@@ -38,12 +41,14 @@ public class ViewSingleTeamInfoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragmentTeamInfo = inflater.inflate(R.layout.fragment_view_single_team_info, container, false);
 
+        progressBar = fragmentTeamInfo.findViewById(R.id.progressBar);
         tvTeamName=fragmentTeamInfo.findViewById(R.id.tv_teamName);
         tvTeamColor=fragmentTeamInfo.findViewById(R.id.tv_teamColor);
         tvManagerName=fragmentTeamInfo.findViewById(R.id.tv_teamManagerName);
         tvContact=fragmentTeamInfo.findViewById(R.id.et_teamManagerContact);
         editImage=fragmentTeamInfo.findViewById(R.id.editImageView);
         saveImage=fragmentTeamInfo.findViewById(R.id.rightImageView);
+        tvNoData=fragmentTeamInfo.findViewById(R.id.tvNoData);
         //contactNumber=tvContact.toString();
 
         tvContact.setEnabled(false);
@@ -74,6 +79,7 @@ public class ViewSingleTeamInfoFragment extends Fragment {
         rvPlayerList = fragmentTeamInfo.findViewById(R.id.rc_teamPlayer);
         new teamInfo().execute();
         new MyTask().execute();
+        // new removePlayer().execute();
 
         return fragmentTeamInfo;
     }
@@ -85,7 +91,7 @@ public class ViewSingleTeamInfoFragment extends Fragment {
         protected Void doInBackground(Void... voids) {
             URL url = null;
             try {
-                url = new URL("http://" + Constants.localHost+"/" + Constants.projectPath + "main/teamManagerUpdateInfo&" + newContactNumber +"&"+4);
+                url = new URL("http://" + Constants.localHost+"/" + Constants.projectPath + "leagueManager/teamManagerUpdateInfo&" + newContactNumber +"&"+4);
 
                 HttpURLConnection client = null;
 
@@ -132,7 +138,6 @@ public class ViewSingleTeamInfoFragment extends Fragment {
         protected void onPostExecute(Void result) {
 
             super.onPostExecute(result);
-
         }
     }
 
@@ -182,10 +187,10 @@ public class ViewSingleTeamInfoFragment extends Fragment {
                 for (int i = 0; i < scheduleArray.length(); i++) {
                     singleSchedule = scheduleArray.getJSONObject(i);
 
-                     teamName = singleSchedule.getString("teamName");
-                     teamColor = singleSchedule.getString("teamColor");
-                     userName = singleSchedule.getString("userName");
-                     contactNumber = singleSchedule.getString("contactNumber");
+                    teamName = singleSchedule.getString("teamName");
+                    teamColor = singleSchedule.getString("teamColor");
+                    userName = singleSchedule.getString("userName");
+                    contactNumber = singleSchedule.getString("contactNumber");
 
                     teamInfoList.add(new ViewSingleTeamInfo(teamName,teamColor,userName,contactNumber));
                 }
@@ -207,11 +212,31 @@ public class ViewSingleTeamInfoFragment extends Fragment {
             tvTeamColor.setText(teamColor);
             tvManagerName.setText(userName);
             tvContact.setText(contactNumber);
+
+            if(return_msg.equals("Available")){
+                rvPlayerList.setLayoutManager(new LinearLayoutManager(getActivity()));
+                final ViewSingleTeamAdapter SAdapter = new ViewSingleTeamAdapter(teamInfoList, getActivity());
+
+                rvPlayerList.setAdapter(SAdapter);
+            }
+            else if(return_msg.equals(null)){
+                Toast.makeText(getActivity(), "No information vailable", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(getActivity(), "Error! Try again later.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
     private class MyTask extends AsyncTask<Void, Void, Void> {
         String return_msg;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //btnCreateMatch.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -256,12 +281,13 @@ public class ViewSingleTeamInfoFragment extends Fragment {
                 for(int i=0;i<scheduleArray.length();i++){
                     singleSchedule=scheduleArray.getJSONObject(i);
 
+                    int playerId=singleSchedule.getInt("playerId");
                     String playerName = singleSchedule.getString("playerName");
                     String role = singleSchedule.getString("role");
                     String imageUrl = singleSchedule.getString("url");
                     System.out.println(playerName+role+imageUrl);
 
-                    teamInfoList.add(new ViewSingleTeamInfo(playerName,role,imageUrl));
+                    teamInfoList.add(new ViewSingleTeamInfo(playerId,playerName,role,imageUrl));
                 }
             }
             catch (MalformedURLException e) {
@@ -279,13 +305,21 @@ public class ViewSingleTeamInfoFragment extends Fragment {
         protected void onPostExecute(Void result) {
 
             super.onPostExecute(result);
-
+            progressBar.setVisibility(View.INVISIBLE);
             if(return_msg.equals("Available")) {
                 rvPlayerList.setLayoutManager(new LinearLayoutManager(getActivity()));
-                ViewSingleTeamAdapter SAdapter = new ViewSingleTeamAdapter(teamInfoList, getActivity());
+                final ViewSingleTeamAdapter SAdapter = new ViewSingleTeamAdapter(teamInfoList, getActivity());
 
                 rvPlayerList.setAdapter(SAdapter);
             }
+            else if(return_msg.equals("null"))
+            {
+                Toast.makeText(getActivity(), " Players are not Available! ", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getActivity(), "Error! Try again later.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
+
+
 }

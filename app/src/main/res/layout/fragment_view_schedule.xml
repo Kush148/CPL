@@ -34,7 +34,7 @@
         app:layout_constraintTop_toTopOf="@+id/rvScheduleList" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fbCreateTeam"
+        android:id="@+id/fbCreateMatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"

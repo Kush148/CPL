@@ -44,7 +44,7 @@ public class ViewScheduleFragment extends Fragment {
 
         rvScheduleList = fragmentSchedule.findViewById(R.id.rvScheduleList);
         tvNoMatches = fragmentSchedule.findViewById(R.id.tvNoMatches);
-        fbCreateMatch = fragmentSchedule.findViewById(R.id.fbCreateTeam);
+        fbCreateMatch = fragmentSchedule.findViewById(R.id.fbCreateMatch);
         progressBar = fragmentSchedule.findViewById(R.id.progressBar);
 
 

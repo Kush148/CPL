@@ -105,7 +105,7 @@ public class TeamFragment extends Fragment {
                 System.out.println(response.toString());
 
                 JSONObject mainObject = new JSONObject(response.toString());
-                return_msg = mainObject.getString("Status");
+                return_msg = mainObject.getString("Message");
 
                 JSONArray SeasonArray = mainObject.getJSONArray("Teams");
                 JSONObject singleSeason;

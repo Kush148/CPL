@@ -2,12 +2,22 @@ package com.example.cpl;
 
 public class ViewSingleTeamInfo {
 
+    int playerId;
     String teamName,teamColor,userName,contactNumber,playerName,playerRole,url;
 
-    public ViewSingleTeamInfo(String playerName, String playerRole, String url) {
+    public ViewSingleTeamInfo(int playerId, String playerName, String playerRole, String url) {
+        this.playerId = playerId;
         this.playerName = playerName;
         this.playerRole = playerRole;
         this.url = url;
+    }
+
+    public int getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
     }
 
     public ViewSingleTeamInfo(String teamName, String teamColor, String userName, String contactNumber) {

@@ -1,5 +1,7 @@
 package com.example.cpl;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -92,13 +94,34 @@ public class MoreFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 pref.logout();
-                Fragment homeFragment = new HomeFragment();
+                final   Fragment homeFragment = new HomeFragment();
                 FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft =fm.beginTransaction();
-                ft.replace(R.id.frame_layout,homeFragment).commit();
+                final FragmentTransaction ft =fm.beginTransaction();
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                alertDialogBuilder.setMessage("Are you sure you want to Logout?");
+                alertDialogBuilder.setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                ft.replace(R.id.frame_layout,homeFragment).commit();
+                            }
+                        });
+
+                alertDialogBuilder.setNegativeButton("CANCEL",
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+
+                            }
+                        });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
-
         llAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
