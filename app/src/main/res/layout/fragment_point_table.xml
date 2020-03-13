@@ -49,6 +49,7 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:background="@drawable/spinner_border"
         app:layout_constraintStart_toEndOf="@+id/tv_spinner"
         app:layout_constraintTop_toTopOf="@+id/tv_spinner" />
 

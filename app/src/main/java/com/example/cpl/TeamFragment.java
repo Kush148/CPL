@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -138,6 +139,14 @@ public class TeamFragment extends Fragment {
                 tRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 TeamAdapter tAdapter = new TeamAdapter(teamList, getActivity());
                 tRecyclerView.setAdapter(tAdapter);
+            }
+            else if (return_msg.equals("null"))
+            {
+                Toast.makeText(getActivity(),"Data not Available" , Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(getActivity(),"Error" , Toast.LENGTH_SHORT).show();
             }
         }
     }

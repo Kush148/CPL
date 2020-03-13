@@ -69,6 +69,7 @@
                 <Spinner
 
                     android:id="@+id/teamcolor"
+                    android:background="@drawable/spinner_border"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -81,6 +82,7 @@
 
                 <Spinner
                     android:id="@+id/teammanager"
+                    android:background="@drawable/spinner_border"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
