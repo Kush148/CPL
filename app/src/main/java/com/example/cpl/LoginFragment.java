@@ -178,7 +178,7 @@ public class LoginFragment extends Fragment {
             if (return_msg.equals("Login Successfull")) {
                 pref=new SharedPref(getContext());
                 pref.setId(userId);
-                System.out.println(pref.getId()+"sp");
+               // System.out.println(pref.getId()+"sp");
                 pref.setManagerType(userType);
                 Toast.makeText(getActivity(), "Login Successfull", Toast.LENGTH_SHORT).show();
                 Fragment homeFragment = new HomeFragment();

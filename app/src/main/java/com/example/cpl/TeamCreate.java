@@ -52,18 +52,14 @@ public class TeamCreate extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-
         View fragmentCreateTeam = inflater.inflate(R.layout.fragment_team_create,container,false);
         Teamname = fragmentCreateTeam.findViewById(R.id.teamname);
         Teamcolor = fragmentCreateTeam.findViewById(R.id.teamcolor);
         spinner=(Spinner)fragmentCreateTeam.findViewById(R.id.teammanager);
         progressBar = fragmentCreateTeam.findViewById(R.id.progressBar);
         btn =fragmentCreateTeam.findViewById(R.id.btncreateteam);
-        // spinner]
-        new MyTask2().execute();
 
-        // Inflate the layout for this fragment
+        new MyTask2().execute();
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override

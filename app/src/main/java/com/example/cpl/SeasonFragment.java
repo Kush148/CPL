@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +35,7 @@ public class SeasonFragment extends Fragment {
     private ProgressBar progressBar;
     List<Season> SeasonList = new ArrayList<>();
     FloatingActionButton fbSeason;
+    SharedPref pref;
 
     @Nullable
     @Override
@@ -44,9 +46,13 @@ public class SeasonFragment extends Fragment {
         fbSeason = view.findViewById(R.id.fbSeason);
         new MyTask().execute();
 
-//        if (Constants.loggedInUserId.equals("1")) {
-//            fbSeason.setVisibility(View.VISIBLE);
-//        }
+        pref=new SharedPref(this.getActivity());
+        Constants.userId = pref.getId();
+        Constants.userType = pref.getManagerType();
+
+        if(Constants.userId.equals("1") && Constants.userType.equalsIgnoreCase("Leaguemanager")){
+          fbSeason.setVisibility(View.VISIBLE);
+        }
         fbSeason.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,9 +109,9 @@ public class SeasonFragment extends Fragment {
                 System.out.println(response.toString());
 
                 JSONObject mainObject = new JSONObject(response.toString());
-                return_msg = mainObject.getString("Status");
+                return_msg = mainObject.getString("Message");
 
-                JSONArray SeasonArray = mainObject.getJSONArray("String");
+                JSONArray SeasonArray = mainObject.getJSONArray("Seasons");
                 JSONObject singleSeason;
                 for (int i = 0; i < SeasonArray.length(); i++) {
                     singleSeason = SeasonArray.getJSONObject(i);
@@ -129,11 +135,14 @@ public class SeasonFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            sRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-            SeasonAdapter SAdapter = new SeasonAdapter(SeasonList, getActivity());
-            sRecyclerview.setAdapter(SAdapter);
-            progressBar.setVisibility(View.INVISIBLE);
-
+            if (return_msg.equals("Available")) {
+                sRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+                SeasonAdapter SAdapter = new SeasonAdapter(SeasonList, getActivity());
+                sRecyclerview.setAdapter(SAdapter);
+                progressBar.setVisibility(View.INVISIBLE);
+            }else{
+                Toast.makeText(getContext(),"Please try again",Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

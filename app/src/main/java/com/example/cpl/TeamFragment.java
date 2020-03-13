@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,6 +31,9 @@ public class TeamFragment extends Fragment {
     View view;
     private RecyclerView tRecyclerView;
     List<Team> teamList = new ArrayList<>();
+    FloatingActionButton fbCreateTeams;
+    SharedPref pref;
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,19 +41,39 @@ public class TeamFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_team, container, false);
         tRecyclerView =  view.findViewById(R.id.rc_teamId);
+        fbCreateTeams =  view.findViewById(R.id.fbCreateTeam);
+        progressBar =  view.findViewById(R.id.progressBar);
+        pref=new SharedPref(this.getActivity());
+        Constants.userId = pref.getId();
+        Constants.userType = pref.getManagerType();
+
+        if(Constants.userId.equals("1") && Constants.userType.equalsIgnoreCase("LeagueManager")){
+            fbCreateTeams.setVisibility(View.VISIBLE);
+        }
 
         new MyTask().execute();
+
+        fbCreateTeams.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment createTeams = new TeamCreate();
+                getFragmentManager().beginTransaction().replace(R.id.frame_layout, createTeams).commit();
+            }
+        });
         return view;
     }
     private class MyTask extends AsyncTask<Void, Void, Void> {
         String return_msg;
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        @Override
         protected Void doInBackground(Void... voids) {
             URL url = null;
             try {
-
-
                 url = new URL("http://" + Constants.localHost+"/" + Constants.projectPath + "main/viewTeams");
 
                 HttpURLConnection client = null;
@@ -106,12 +132,13 @@ public class TeamFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-
-            tRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            TeamAdapter tAdapter = new TeamAdapter(teamList,getActivity());
-            tRecyclerView.setAdapter(tAdapter);
-
-
+            progressBar.setVisibility(View.GONE);
+            if (return_msg.equals("Available")) {
+                progressBar.setVisibility(View.VISIBLE);
+                tRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                TeamAdapter tAdapter = new TeamAdapter(teamList, getActivity());
+                tRecyclerView.setAdapter(tAdapter);
+            }
         }
     }
 }
