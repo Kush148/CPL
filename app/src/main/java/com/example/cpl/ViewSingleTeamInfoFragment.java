@@ -77,8 +77,8 @@ public class ViewSingleTeamInfoFragment extends Fragment {
         });
 
         rvPlayerList = fragmentTeamInfo.findViewById(R.id.rc_teamPlayer);
-        new teamInfo().execute();
         new MyTask().execute();
+        new teamInfo().execute();
         // new removePlayer().execute();
 
         return fragmentTeamInfo;
@@ -220,7 +220,7 @@ public class ViewSingleTeamInfoFragment extends Fragment {
                 rvPlayerList.setAdapter(SAdapter);
             }
             else if(return_msg.equals(null)){
-                Toast.makeText(getActivity(), "No information vailable", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "No information Available", Toast.LENGTH_SHORT).show();
             }
             else{
                 Toast.makeText(getActivity(), "Error! Try again later.", Toast.LENGTH_SHORT).show();
@@ -269,7 +269,6 @@ public class ViewSingleTeamInfoFragment extends Fragment {
                 }
                 in.close();
 
-
                 //print result
                 System.out.println(response.toString());
 
@@ -314,7 +313,7 @@ public class ViewSingleTeamInfoFragment extends Fragment {
             }
             else if(return_msg.equals("null"))
             {
-                Toast.makeText(getActivity(), " Players are not Available! ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "No Players Available! ", Toast.LENGTH_SHORT).show();
             }else{
                 Toast.makeText(getActivity(), "Error! Try again later.", Toast.LENGTH_SHORT).show();
             }

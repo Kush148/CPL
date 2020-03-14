@@ -23,6 +23,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder> {
     Context context;
     Team teamlist;
     static int teamId,position;
+    //check upper static variables
 
     public TeamAdapter(List<Team> listofteam, Context context) {
         Listofteam = listofteam;

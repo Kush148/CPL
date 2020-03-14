@@ -100,7 +100,7 @@ public class MoreFragment extends Fragment {
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                 alertDialogBuilder.setMessage("Are you sure you want to Logout?");
-                alertDialogBuilder.setPositiveButton("OK",
+                alertDialogBuilder.setPositiveButton("Yes",
                         new DialogInterface.OnClickListener() {
 
                             @Override

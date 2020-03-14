@@ -91,7 +91,7 @@ public class BrowsePlayers extends Fragment {
             URL url = null;
             try {
 
-                url = new URL("http://192.168.2.60:8080/WebServicesCPL/cpl/main/browsePlayers&" +browsing);
+                url = new URL("http://" + Constants.localHost+"/" + Constants.projectPath +"main/browsePlayers&"+browsing);
 
                 HttpURLConnection client = null;
 

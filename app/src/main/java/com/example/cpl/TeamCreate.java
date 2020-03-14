@@ -37,29 +37,38 @@ import java.util.List;
 
 public class TeamCreate extends Fragment {
 
-    EditText Teamname, Teamcolor;
+    EditText Teamname;
     Button btn;
     ProgressBar progressBar;
     String teamname, teamcolor;
-    Spinner spinner;
-    String return_msg;
+    Spinner spinner, Teamcolor;
     int teamManagerid;
     private String selectedmanagername = null;
     private int val = 0;
     public HashMap<String, Integer> TeamManagerList = new HashMap<>();
     public ArrayList<String> managernames = new ArrayList<String>();
-
+    String[] colour = {"BLUE", "GREEN", "ORANGE", "PINK", "PURPLE", "RED", "YELLOW"};
+    String ColorURL;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         View fragmentCreateTeam = inflater.inflate(R.layout.fragment_team_create, container, false);
         Teamname = fragmentCreateTeam.findViewById(R.id.teamname);
-        Teamcolor = fragmentCreateTeam.findViewById(R.id.teamcolor);
+        Teamcolor = (Spinner) fragmentCreateTeam.findViewById(R.id.teamcolor);
         spinner = (Spinner) fragmentCreateTeam.findViewById(R.id.teammanager);
         progressBar = fragmentCreateTeam.findViewById(R.id.progressBar);
         btn = fragmentCreateTeam.findViewById(R.id.btncreateteam);
+
+
+        Teamcolor.setOnItemSelectedListener(new MyOnItemSelectedListener());
+
+
+        ArrayAdapter teamColor = new ArrayAdapter(getActivity(), R.layout.single_spinnerdata, colour);
+
+        Teamcolor.setAdapter(teamColor);
 
         new MyTask2().execute();
 
@@ -68,22 +77,7 @@ public class TeamCreate extends Fragment {
             public void onClick(View v) {
 
                 teamname = Teamname.getText().toString();
-                if (TextUtils.isEmpty(teamname)) {
-                    Teamname.setError("Team name Can not be Empty !");
-                    return;
-                }
-                teamcolor = Teamcolor.getText().toString();
-
-                if (TextUtils.isEmpty(teamcolor)) {
-                    Teamcolor.setError("Color can not be Empty !");
-                    return;
-                }
-
-                teamManagerid = teamManagerid;
                 new MyTask().execute();
-
-
-                Toast.makeText(getActivity(), "Successfully inserted", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -177,8 +171,12 @@ public class TeamCreate extends Fragment {
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             String selectedItem = parent.getItemAtPosition(position).toString();
 
+
+            teamcolor = colour[position].toLowerCase();
+
             //check which spinner triggered the listener
             switch (parent.getId()) {
+
                 //country spinner
                 case R.id.teammanager:
                     //make sure the country was already selected during the onCreate
@@ -257,23 +255,15 @@ public class TeamCreate extends Fragment {
 
         @Override
         protected void onPostExecute(Void result) {
-
+            super.onPostExecute(result);
             btn.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.INVISIBLE);
-            if (return_msg.equals(" Record(s) have been successfully inserted.")){
-                Toast.makeText(getActivity()," Record(s) have been successfully inserted.",Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
-                Toast.makeText(getActivity(),"Error" , Toast.LENGTH_SHORT).show();
-            }
-            super.onPostExecute(result);
-            System.out.println("executed");
+            PlayerListFragment playerListFragment = new PlayerListFragment();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, playerListFragment).commit();
+
         }
 
     }
 
 
 }
-
-

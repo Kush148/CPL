@@ -45,9 +45,10 @@ public class PointTable extends Fragment {
     private String seasonList = null;
     Spinner spinner;
     int seasonId;
-    private int val= 0;
+    private int val = 0;
     public HashMap<String, Integer> HSeasonList = new HashMap<>();
     public ArrayList<String> TeamNames = new ArrayList<String>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,12 +57,13 @@ public class PointTable extends Fragment {
 
         rvPointsTableList = view.findViewById(R.id.rvPointsTable);
         progressBar = view.findViewById(R.id.progressBar);
-        spinner=(Spinner)view.findViewById(R.id.spinner);
+        spinner = (Spinner) view.findViewById(R.id.spinner);
         new MyTask1().execute();
 
 
         return view;
     }
+
     private class MyTask1 extends AsyncTask<Void, Void, Void> {
         String return_msg;
 
@@ -110,9 +112,9 @@ public class PointTable extends Fragment {
                     String teamName = singlename.getString("Season Title");
                     int teamId = singlename.getInt("SeasonId");
                     System.out.println(teamName);
-                    HSeasonList.put(teamName,teamId);
-                    System.out.println("..........."+HSeasonList);
-                    for ( String key : HSeasonList.keySet() ) {
+                    HSeasonList.put(teamName, teamId);
+                    System.out.println("..........." + HSeasonList);
+                    for (String key : HSeasonList.keySet()) {
                         TeamNames.add(key);
                     }
 
@@ -132,7 +134,7 @@ public class PointTable extends Fragment {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
 
-            ArrayAdapter SAdapter = new ArrayAdapter(getContext(), R.layout.single_spinnerdata,TeamNames);
+            ArrayAdapter SAdapter = new ArrayAdapter(getContext(), R.layout.single_spinnerdata, TeamNames);
             SAdapter.setDropDownViewResource(R.layout.single_spinnerdata);
             spinner.setAdapter(SAdapter);
 
@@ -148,11 +150,11 @@ public class PointTable extends Fragment {
             String selectedItem = parent.getItemAtPosition(position).toString();
 
             seasonList = selectedItem;
-            val = (int)HSeasonList.get(seasonList);
+            val = (int) HSeasonList.get(seasonList);
             System.out.println(val);
-            if(val != NULL )
-            {
-                new MyTask().execute();}
+            if (val != NULL) {
+                new MyTask().execute();
+            }
         }
 
         @Override
@@ -176,7 +178,7 @@ public class PointTable extends Fragment {
             URL url = null;
             try {
 
-                url = new URL("http://" + Constants.localHost + "/" + Constants.projectPath +"main/viewPointsTable&"+val);
+                url = new URL("http://" + Constants.localHost + "/" + Constants.projectPath + "main/viewPointsTable&" + val);
 
                 HttpURLConnection client = null;
 
@@ -209,8 +211,8 @@ public class PointTable extends Fragment {
 
                 JSONArray pointsTableArray = obj.getJSONArray("PointsTable");
                 JSONObject ViewList;
-                for(int i=0;i<pointsTableArray.length();i++){
-                    ViewList=pointsTableArray.getJSONObject(i);
+                for (int i = 0; i < pointsTableArray.length(); i++) {
+                    ViewList = pointsTableArray.getJSONObject(i);
 
                     String team_Name = ViewList.getString("TeamName");
                     int playMatch = ViewList.getInt("play");
@@ -223,7 +225,7 @@ public class PointTable extends Fragment {
                     System.out.println(LoseMatch);
                     System.out.println(MatchPoints);
 
-                    pointsTableLists.add(new PointsTableList(team_Name,playMatch,WinMatch,LoseMatch,MatchPoints));
+                    pointsTableLists.add(new PointsTableList(team_Name, playMatch, WinMatch, LoseMatch, MatchPoints));
                 }
 
             } catch (MalformedURLException e) {
@@ -239,18 +241,17 @@ public class PointTable extends Fragment {
 
         @Override
         protected void onPostExecute(Void result) {
-
-            if(return_msg.equals("null"))
-            {
-                progressBar.setVisibility(View.GONE);
-
-            }
-            else
-            {
+            progressBar.setVisibility(View.GONE);
+            if (return_msg.equals("null")) {
+                //change here
+               // rvPointsTableList.setVisibility(View.GONE);
+                //textview PT unavailable
+            } else {
                 rvPointsTableList.setLayoutManager(new LinearLayoutManager(getActivity()));
-                PointsTableAdapter showTableAdapter = new PointsTableAdapter(pointsTableLists,getActivity());
+                PointsTableAdapter showTableAdapter = new PointsTableAdapter(pointsTableLists, getActivity());
                 rvPointsTableList.setAdapter(showTableAdapter);
-                progressBar.setVisibility(View.INVISIBLE);}
+                progressBar.setVisibility(View.INVISIBLE);
+            }
 
             super.onPostExecute(result);
         }
