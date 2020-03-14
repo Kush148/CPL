@@ -16,6 +16,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder> {
@@ -64,7 +66,11 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder> {
         teamlist = Listofteam.get(position);
 
         holder.teamName.setText(teamlist.getTeamName());
-        holder.teamColor.setText(teamlist.getColor());
+        Picasso.with(context)
+                .load(teamlist.getColor())
+                .fit()
+                .centerCrop()
+                .into(holder.teamColor);
 
     }
 
@@ -75,13 +81,13 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         RelativeLayout item;
-        TextView teamName,teamColor;
-        ImageView imgDelete;
+        TextView teamName;
+        ImageView teamColor;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             item=(RelativeLayout)itemView.findViewById(R.id.rl1);
             teamName = itemView.findViewById(R.id.teamname);
-            teamColor = itemView.findViewById(R.id.tcolor);
+            teamColor = itemView.findViewById(R.id.teamcolor);
         }
     }
 }
