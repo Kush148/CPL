@@ -40,35 +40,26 @@ public class TeamCreate extends Fragment {
     EditText Teamname;
     Button btn;
     ProgressBar progressBar;
-    String teamname, teamcolor;
-    Spinner spinner, Teamcolor;
-    int teamManagerid;
+    String teamname,teamcolor,return_msg;
+    Spinner spinner,Teamcolor;
     private String selectedmanagername = null;
-    private int val = 0;
+    private int val= 0;
     public HashMap<String, Integer> TeamManagerList = new HashMap<>();
     public ArrayList<String> managernames = new ArrayList<String>();
-    String[] colour = {"BLUE", "GREEN", "ORANGE", "PINK", "PURPLE", "RED", "YELLOW"};
-    String ColorURL;
+    String[] colour = { "BLUE","GREEN","ORANGE","PINK","PURPLE","RED","YELLOW"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
-        View fragmentCreateTeam = inflater.inflate(R.layout.fragment_team_create, container, false);
+        View fragmentCreateTeam = inflater.inflate(R.layout.fragment_team_create,container,false);
         Teamname = fragmentCreateTeam.findViewById(R.id.teamname);
-        Teamcolor = (Spinner) fragmentCreateTeam.findViewById(R.id.teamcolor);
-        spinner = (Spinner) fragmentCreateTeam.findViewById(R.id.teammanager);
+        Teamcolor =(Spinner)fragmentCreateTeam.findViewById(R.id.teamcolor);
+        spinner=(Spinner)fragmentCreateTeam.findViewById(R.id.teammanager);
         progressBar = fragmentCreateTeam.findViewById(R.id.progressBar);
-        btn = fragmentCreateTeam.findViewById(R.id.btncreateteam);
-
-
         Teamcolor.setOnItemSelectedListener(new MyOnItemSelectedListener());
-
-
-        ArrayAdapter teamColor = new ArrayAdapter(getActivity(), R.layout.single_spinnerdata, colour);
-
-        Teamcolor.setAdapter(teamColor);
+        ArrayAdapter aa = new ArrayAdapter(getActivity(),R.layout.single_spinnerdata,colour);
+        Teamcolor.setAdapter(aa);
+        btn =fragmentCreateTeam.findViewById(R.id.btncreateteam);
 
         new MyTask2().execute();
 
@@ -76,23 +67,40 @@ public class TeamCreate extends Fragment {
             @Override
             public void onClick(View v) {
 
-                teamname = Teamname.getText().toString();
-                new MyTask().execute();
+                if(validateInput())
+                {
+                    new MyTask().execute();
+                }
+
             }
         });
-
         return fragmentCreateTeam;
     }
+    private boolean validateInput() {
+
+        teamname = (Teamname.getText().toString().trim());
+
+        if (teamname.isEmpty()) {
+            Teamname.requestFocus();
+            Teamname.setError("Team Name can't be empty");
+            return false;
+        }
+        else {
+            Teamname.setError(null);
+            return true;
+        }
+    }
+
+
 
     private class MyTask2 extends AsyncTask<Void, Void, Void> {
-        String return_msg;
 
         @Override
         protected Void doInBackground(Void... voids) {
             URL url = null;
             try {
 
-                url = new URL("http://" + Constants.localHost + "/" + Constants.projectPath + "main/viewTeamManager");
+                url = new URL("http://" + Constants.localHost+"/" + Constants.projectPath +"main/viewTeamManager");
 
                 HttpURLConnection client = null;
 
@@ -119,11 +127,10 @@ public class TeamCreate extends Fragment {
                 }
                 in.close();
 
-                //print result
                 System.out.println(response.toString());
 
                 JSONObject mainObject = new JSONObject(response.toString());
-                return_msg = mainObject.getString("Status");
+                return_msg = mainObject.getString("Message");
 
                 JSONArray teamManagerArray = mainObject.getJSONArray("TeamManagers");
                 JSONObject singlename;
@@ -132,10 +139,10 @@ public class TeamCreate extends Fragment {
                     String UserName = singlename.getString("UserName");
                     int teamManagerId = singlename.getInt("teamManagerId");
                     System.out.println(UserName);
-                    TeamManagerList.put(UserName, teamManagerId);
+                    TeamManagerList.put(UserName,teamManagerId);
                     System.out.println(TeamManagerList);
                 }
-                for (String key : TeamManagerList.keySet()) {
+                for ( String key : TeamManagerList.keySet() ) {
                     managernames.add(key);
                 }
 
@@ -153,79 +160,58 @@ public class TeamCreate extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-
-            ArrayAdapter SAdapter = new ArrayAdapter(getContext(), R.layout.single_spinnerdata, managernames);
-            SAdapter.setDropDownViewResource(R.layout.single_spinnerdata);
-            spinner.setAdapter(SAdapter);
-
-
+            if (return_msg.equals("Available")){
+                ArrayAdapter SAdapter = new ArrayAdapter(getContext(),R.layout.single_spinnerdata, managernames);
+                SAdapter.setDropDownViewResource(R.layout.single_spinnerdata);
+                spinner.setAdapter(SAdapter);
+            }
+            else
+            {
+                Toast.makeText(getActivity(),"Error" , Toast.LENGTH_SHORT).show();
+            }
             spinner.setOnItemSelectedListener(new MyOnItemSelectedListener());
-
-
         }
     }
-
     public class MyOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
 
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             String selectedItem = parent.getItemAtPosition(position).toString();
 
-
-            teamcolor = colour[position].toLowerCase();
-
-            //check which spinner triggered the listener
+            teamcolor= colour[position].toLowerCase();
             switch (parent.getId()) {
 
-                //country spinner
                 case R.id.teammanager:
-                    //make sure the country was already selected during the onCreate
-//                    if (selectedmanagername != null) {
-//                        Toast.makeText(parent.getContext(), " you selected is " + selectedItem,
-//                                Toast.LENGTH_LONG).show();
-//                    }
-                    selectedmanagername = selectedItem;
-                    val = (int) TeamManagerList.get(selectedmanagername);
-                    break;
 
+                    selectedmanagername = selectedItem;
+                    val = (int)TeamManagerList.get(selectedmanagername);
+                    break;
             }
         }
-
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
-
         }
     }
-
-    //..............................................
-
-    private class MyTask extends AsyncTask<Void, Void, Void> {
+    private class MyTask extends AsyncTask<Void , Void , Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             btn.setVisibility(View.INVISIBLE);
             progressBar.setVisibility(View.VISIBLE);
         }
-
         @Override
         protected Void doInBackground(Void... voids) {
             URL url = null;
             try {
-                // url = new URL("http://" + Constants.localHost+"/" + Constants.projectPath + "main/userLogin&" + userType + "&" + userEmail + "&" + userPassword);
-                url = new URL("http://" + Constants.localHost + "/" + Constants.projectPath + "leagueManager/createTeam&" + teamname + "&" + teamcolor + "&" + val);
+
+                url = new URL("http://" + Constants.localHost+"/" + Constants.projectPath +"leagueManager/createTeam&"+ teamname  + "&" + teamcolor+ "&" + val);
                 HttpURLConnection client = null;
                 client = (HttpURLConnection) url.openConnection();
-
                 client.setRequestMethod("GET");
-
                 int responseCode = client.getResponseCode();
-
                 System.out.println("\n Sending 'GET' request to URL : " + url);
-
                 System.out.println("Response Code : " + responseCode);
-
-                InputStreamReader myInput = new InputStreamReader(client.getInputStream());
-
+                InputStreamReader myInput= new InputStreamReader(client.getInputStream());
                 BufferedReader in = new BufferedReader(myInput);
                 String inputLine;
                 StringBuffer response = new StringBuffer();
@@ -234,36 +220,35 @@ public class TeamCreate extends Fragment {
                     response.append(inputLine);
                 }
                 in.close();
-
-
-                //print result
                 System.out.println(response.toString());
-
-                JSONObject obj = new JSONObject(response.toString());
-                String return_msg = obj.getString("Message");
+                JSONObject obj =new JSONObject(response.toString());
+                return_msg = obj.getString("Message");
                 System.out.println(return_msg);
-            } catch (MalformedURLException e) {
+            }
+            catch (MalformedURLException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             return null;
-
         }
-
         @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
+        protected void onPostExecute(Void result){
+
             btn.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.INVISIBLE);
-            PlayerListFragment playerListFragment = new PlayerListFragment();
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, playerListFragment).commit();
-
+            if (return_msg.equals(" Record(s) have been successfully inserted.")){
+                Toast.makeText(getActivity()," Record(s) have been successfully inserted.",Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(getActivity(),"Error" , Toast.LENGTH_SHORT).show();
+            }
+            super.onPostExecute(result);
+            System.out.println("executed");
         }
-
     }
-
-
 }
