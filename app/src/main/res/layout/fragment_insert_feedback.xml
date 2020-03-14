@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,14 +8,19 @@
     tools:context=".FeedbackFragment">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:background="@drawable/background_grad" />
 
         <ImageView
@@ -25,76 +31,87 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="160dp"
         android:id="@+id/layoutInput"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_centerHorizontal="true"
-        android:background="#CCEEFCFC"
-        android:padding="20dp"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="12dp"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout">
 
         <EditText
-            android:background="@drawable/textview_border"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
             android:id="@+id/et_email"
-            android:maxLines="1"
-            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:padding="10dp"
-            android:hint="Email"/>
-
-        <EditText android:background="@drawable/textview_border"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:id="@+id/et_title"
-            android:layout_marginTop="16dp"
-            android:padding="10dp"
-            android:hint="Title"/>
-
-        <EditText android:background="@drawable/textview_border"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:id="@+id/et_description"
+            android:hint="Email"
+            android:inputType="text"
             android:maxLines="1"
+            android:padding="10dp" />
+
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:hint="Title"
+            android:padding="10dp" />
+
+        <EditText
+            android:id="@+id/et_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/textview_border"
             android:gravity="top"
+            android:hint="Up to 250"
             android:inputType="textMultiLine"
             android:lines="5"
-            android:hint="Description"/>
+            android:maxLength="250" />
 
         <Button
             android:id="@+id/btnSubmit"
-            android:layout_marginTop="45dp"
-            android:textColor="#FFF"
-            android:background="@drawable/button_border"
-            android:textAllCaps="false"
-            android:text="Submit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/button_border"
+            android:text="Submit"
+            android:textAllCaps="false"
+            android:textColor="#FFF" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/imageVIew"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="5dp"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/feedback"
-        android:padding="5dp"
         android:layout_width="75dp"
-        android:layout_height="75dp" />
+        android:layout_height="75dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        android:src="@drawable/feedback"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
-        android:textSize="24sp"
-        android:textColor="#FFF"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/imageVIew"
-        android:text="Send Your Feedback"
-        android:textStyle="bold"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageVIew"
+        android:layout_centerHorizontal="true"
+        android:text="Send Your Feedback"
+        android:textColor="#FFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/layoutInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageVIew" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

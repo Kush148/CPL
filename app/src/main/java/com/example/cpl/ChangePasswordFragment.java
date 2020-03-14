@@ -26,6 +26,7 @@ import java.net.URL;
 public class ChangePasswordFragment extends Fragment {
 
     EditText etNewPass, etConfirmPass;
+    String NewPassword, ConfirmPassword;
     Button btnReset;
     String newPass, confirmPass;
     int userId;
@@ -33,9 +34,9 @@ public class ChangePasswordFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View changePass = inflater.inflate(R.layout.fragment_change_password, container, false);
 
-        etNewPass = changePass.findViewById(R.id.etNewPass);
-        etConfirmPass = changePass.findViewById(R.id.etConfirmPass);
-        btnReset = changePass.findViewById(R.id.btnReset);
+        etNewPass = changePass.findViewById(R.id.etNewPassword);
+        etConfirmPass = changePass.findViewById(R.id.etConfirmPassword);
+        btnReset = changePass.findViewById(R.id.btn_confirm);
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -45,23 +46,36 @@ public class ChangePasswordFragment extends Fragment {
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                newPass = etNewPass.getText().toString();
-                confirmPass = etNewPass.getText().toString();
-                if ((newPass.isEmpty())) {
-                    Toast.makeText(getActivity(), "New Password Cannot be Empty", Toast.LENGTH_SHORT).show();
-                } else if (confirmPass.isEmpty()) {
-                    Toast.makeText(getActivity(), "Please Confirm your new password", Toast.LENGTH_SHORT).show();
-                }
-                if (!newPass.equals(confirmPass)) {
-                    Toast.makeText(getActivity(), "Passwords Doesnt Match", Toast.LENGTH_SHORT).show();
-                } else {
+                if (validateInput()) {
                     new MyTask().execute();
                 }
             }
         });
         return changePass;
     }
+    private boolean validateInput() {
 
+        NewPassword = (etNewPass.getText().toString().trim());
+        ConfirmPassword = (etConfirmPass.getText().toString().trim());
+
+        if (NewPassword.isEmpty()) {
+            etNewPass.requestFocus();
+            etNewPass.setError("New Password Cannot be Empty");
+            return false;
+        } else if (ConfirmPassword.isEmpty()) {
+            etConfirmPass.requestFocus();
+            etConfirmPass.setError("Please Confirm your new password");
+            return false;
+        } else if (!NewPassword.equals(ConfirmPassword)) {
+            etConfirmPass.requestFocus();
+            etConfirmPass.setError("Passwords Doesnt Match");
+            return false;
+        } else {
+            etNewPass.setError(null);
+            etNewPass.setError(null);
+            return true;
+        }
+    }
     private class MyTask extends AsyncTask<Void, Void, Void> {
         String return_msg;
 

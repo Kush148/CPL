@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ import java.net.URL;
 
 public class FeedbackFragment extends Fragment {
 
-    String email,title,description;
+    String email,title,description=" ";
     Button btnSubmit;
     EditText ETemail, ETtitle, ETdescription;
 
@@ -45,16 +46,41 @@ public class FeedbackFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                email = ETemail.getText().toString();
-                title = ETtitle.getText().toString();
-                description = ETdescription.getText().toString();
-
-                new MyTask().execute();
+                if(validateInput()) {
+                    new MyTask().execute();
+                }
             }
         });
 
 
+
         return feedbackInsert;
+    }
+
+    private boolean validateInput() {
+
+        email = (ETemail.getText().toString().trim());
+        title = (ETtitle.getText().toString().trim());
+        description = (ETdescription.getText().toString().trim());
+
+        if (email.isEmpty()) {
+            ETemail.requestFocus();
+            ETemail.setError("Email can't be empty");
+            return false;
+        }else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            ETemail.requestFocus();
+            ETemail.setError("Please enter a valid email address");
+            return false;
+        }else if (title.isEmpty()) {
+            ETtitle.requestFocus();
+            ETtitle.setError("Title can't be empty");
+            return false;
+        }
+        else {
+            ETemail.setError(null);
+            ETtitle.setError(null);
+            return true;
+        }
     }
 
     private class MyTask extends AsyncTask<Void, Void, Void> {
