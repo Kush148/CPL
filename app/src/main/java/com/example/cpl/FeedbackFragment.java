@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -28,9 +29,10 @@ import java.net.URL;
 
 public class FeedbackFragment extends Fragment {
 
-    String email,title,description=" ";
+    String email,title,description;
     Button btnSubmit;
     EditText ETemail, ETtitle, ETdescription;
+    ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -41,6 +43,7 @@ public class FeedbackFragment extends Fragment {
         ETtitle=feedbackInsert.findViewById(R.id.et_title);
         ETdescription=feedbackInsert.findViewById(R.id.et_description);
         btnSubmit=feedbackInsert.findViewById(R.id.btnSubmit);
+        progressBar=feedbackInsert.findViewById(R.id.progressBar);
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +78,9 @@ public class FeedbackFragment extends Fragment {
             ETtitle.requestFocus();
             ETtitle.setError("Title can't be empty");
             return false;
+        }else if (description.isEmpty()) {
+            description="None";
+            return true;
         }
         else {
             ETemail.setError(null);
@@ -85,6 +91,13 @@ public class FeedbackFragment extends Fragment {
 
     private class MyTask extends AsyncTask<Void, Void, Void> {
         String return_msg;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            btnSubmit.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -135,9 +148,13 @@ public class FeedbackFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void result) {
-
+            btnSubmit.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
             if(return_msg.equalsIgnoreCase("Feedback Sent")){
                 Toast.makeText(getActivity(),"Feedback Sent Successfully",Toast.LENGTH_SHORT).show();
+                Fragment currentFragment = new MoreFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, currentFragment).commit();
+
             }else{
                 Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
             }

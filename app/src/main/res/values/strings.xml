@@ -4,5 +4,6 @@
     <string name="password">Password</string>
     <string name="login_now">Login Now</string>
     <string name="forgot_password">Forgot password?</string>
-    <string name="About" />
+    <string name="About">CPL stands for Cegep Premier League created recently by Cegep GIM (Montreal Campus). In the last 5 years, number of Indian international students have increased gradually in the college.
+        And by realising their love for cricket they started this league.In regards to that CPL was developed to easily manage the league.</string>
 </resources>

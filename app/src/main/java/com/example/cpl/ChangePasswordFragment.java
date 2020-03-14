@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,7 @@ public class ChangePasswordFragment extends Fragment {
     Button btnReset;
     String newPass, confirmPass;
     int userId;
+    ProgressBar progressBar;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View changePass = inflater.inflate(R.layout.fragment_change_password, container, false);
@@ -37,10 +39,11 @@ public class ChangePasswordFragment extends Fragment {
         etNewPass = changePass.findViewById(R.id.etNewPassword);
         etConfirmPass = changePass.findViewById(R.id.etConfirmPassword);
         btnReset = changePass.findViewById(R.id.btn_confirm);
+        progressBar = changePass.findViewById(R.id.progressBar);
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-             userId = bundle.getInt("UserId", -1);
+            userId = bundle.getInt("UserId", -1);
         }
 
         btnReset.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +56,7 @@ public class ChangePasswordFragment extends Fragment {
         });
         return changePass;
     }
+
     private boolean validateInput() {
 
         NewPassword = (etNewPass.getText().toString().trim());
@@ -61,6 +65,14 @@ public class ChangePasswordFragment extends Fragment {
         if (NewPassword.isEmpty()) {
             etNewPass.requestFocus();
             etNewPass.setError("New Password Cannot be Empty");
+            return false;
+        } else if (NewPassword.length() < 6) {
+            etNewPass.requestFocus();
+            etNewPass.setError("Password Must be of 6-12 characters");
+            return false;
+        } else if (ConfirmPassword.length() < 6) {
+            etConfirmPass.requestFocus();
+            etConfirmPass.setError("Password Must be of 6-12 characters");
             return false;
         } else if (ConfirmPassword.isEmpty()) {
             etConfirmPass.requestFocus();
@@ -76,14 +88,22 @@ public class ChangePasswordFragment extends Fragment {
             return true;
         }
     }
+
     private class MyTask extends AsyncTask<Void, Void, Void> {
         String return_msg;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+            btnReset.setVisibility(View.GONE);
+        }
 
         @Override
         protected Void doInBackground(Void... voids) {
             URL url = null;
             try {
-                url = new URL("http://" + Constants.localHost + "/" + Constants.projectPath + "main/changePassword&"+newPass+"&"+userId);
+                url = new URL("http://" + Constants.localHost + "/" + Constants.projectPath + "main/changePassword&" + NewPassword + "&" + userId);
 
                 HttpURLConnection client = null;
 
@@ -125,11 +145,13 @@ public class ChangePasswordFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void result) {
-            System.out.println("executed");
-            if (return_msg.equals("Password updated successfully")) {
+            progressBar.setVisibility(View.GONE);
+            btnReset.setVisibility(View.VISIBLE);
+
+            if (return_msg.equals("Password Updated")) {
                 Toast.makeText(getActivity(), "Password Changed", Toast.LENGTH_SHORT).show();
                 Fragment loginFragment = new LoginFragment();
-               getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, loginFragment).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, loginFragment).commit();
 
             } else {
                 Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();

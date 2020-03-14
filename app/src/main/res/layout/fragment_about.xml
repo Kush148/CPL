@@ -1,218 +1,358 @@
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/tools"
-    app:ignore="NamespaceTypo"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tvAbout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:background="#0091EA"
+        android:gravity="center"
+        android:text="About Us"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            card_view:cardBackgroundColor="#FEFEFF"
-            android:layout_gravity="center_horizontal"
-            card_view:cardCornerRadius="10dp"
-            card_view:cardElevation="5dp"
-            app:cardCornerRadius="12dp"
-            android:layout_marginTop="3dp"
-            card_view:cardUseCompatPadding="true">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/login_icon"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/login"
-                    app:civ_border_color="@color/white"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Kushalkumar Patel"
-                    android:textStyle="bold"
-                    android:textSize="17dp"
-                    android:textColor="#000000"
-                    android:layout_gravity="center"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1896513"
-                    android:textSize="17dp"
-                    android:textColor="#000000"
-                    android:layout_gravity="center"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView1"
+        android:layout_width="100dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/cardView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAbout">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center_horizontal"
-            card_view:cardBackgroundColor="#FEFEFF"
-            android:gravity="center"
-            card_view:cardCornerRadius="10dp"
-            card_view:cardElevation="5dp"
-            app:cardCornerRadius="12dp"
-            android:layout_marginTop="3dp"
-            card_view:cardUseCompatPadding="true">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/login"
-                    app:civ_border_color="@color/white"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Dipalkumar Patel"
-                    android:textStyle="bold"
-                    android:textSize="17dp"
-                    android:textColor="#000000"
-                    android:layout_gravity="center"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1895269"
-                    android:textSize="17dp"
-                    android:textColor="#000000"
-                    android:layout_gravity="center"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@+id/cardView2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAbout">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center_horizontal"
-            card_view:cardBackgroundColor="#FEFEFF"
-            card_view:cardCornerRadius="10dp"
-            card_view:cardElevation="5dp"
-            app:cardCornerRadius="12dp"
-            android:layout_marginTop="3dp"
-            card_view:cardUseCompatPadding="true">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/login"
-                    app:civ_border_color="@color/white"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Darshita Malaviya"
-                    android:textStyle="bold"
-                    android:textSize="17dp"
-                    android:textColor="#000000"
-                    android:layout_gravity="center"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1894420"
-                    android:textSize="17dp"
-                    android:textColor="#000000"
-                    android:layout_gravity="center"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="100dp"
+                android:layout_height="66dp"
+                android:layout_gravity="center"
+                android:layout_margin="2dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/login" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center_horizontal"
-            card_view:cardBackgroundColor="#FEFEFF"
-            card_view:cardCornerRadius="10dp"
-            card_view:cardElevation="5dp"
-            app:cardCornerRadius="12dp"
-            android:layout_marginTop="3dp"
-            card_view:cardUseCompatPadding="true">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/login"
-                    android:gravity="center"
-                    app:civ_border_color="@color/white"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Priyanka Hirapara"
-                    android:textStyle="bold"
-                    android:textSize="17dp"
-                    android:textColor="#000000"
-                    android:layout_gravity="center"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1894434"
-                    android:textSize="17dp"
-                    android:textColor="#000000"
-                    android:layout_gravity="center"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center_horizontal"
-            card_view:cardBackgroundColor="#FEFEFF"
-            card_view:cardCornerRadius="10dp"
-            card_view:cardElevation="5dp"
-            android:gravity="center"
-            app:cardCornerRadius="12dp"
-            android:layout_marginTop="3dp"
-            card_view:cardUseCompatPadding="true">
-            <LinearLayout
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="258dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cardView1"
+        app:layout_constraintTop_toBottomOf="@+id/tvAbout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="9dp"
+            android:background="#f7f7f7"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_Name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/login"
-                    app:civ_border_color="@color/white"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Mandeep kaur"
-                    android:textStyle="bold"
-                    android:textSize="17dp"
-                    android:textColor="#000000"
-                    android:layout_gravity="center"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1894343"
-                    android:textSize="17dp"
-                    android:textColor="#000000"
-                    android:layout_gravity="center"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
-</ScrollView>
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:text="Kushalkumar Patel"
+                android:textColor="#333333"
+                android:textSize="19dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_Id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:text="1896513"
+                android:textColor="#333333"
+                android:textSize="19dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView3"
+        android:layout_width="100dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/cardView4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@+id/cardView2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAbout">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="100dp"
+                android:layout_height="66dp"
+                android:layout_gravity="center"
+                android:layout_margin="2dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/login" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView4"
+        android:layout_width="258dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cardView3"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="9dp"
+            android:background="#f7f7f7"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_Name1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:text="Dipalkumar Patel"
+                android:textColor="#333333"
+                android:textSize="19dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_Id1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:text="1895269"
+                android:textColor="#333333"
+                android:textSize="19dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView6"
+        android:layout_width="100dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/cardView7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView3">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@+id/cardView2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAbout">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="100dp"
+                android:layout_height="66dp"
+                android:layout_gravity="center"
+                android:layout_margin="2dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/login" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView7"
+        android:layout_width="258dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cardView6"
+        app:layout_constraintTop_toBottomOf="@+id/cardView4">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="9dp"
+            android:background="#f7f7f7"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_Name2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:text="Darshita Malaviya"
+                android:textColor="#333333"
+                android:textSize="19dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_Id2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:text="1894420"
+                android:textColor="#333333"
+                android:textSize="19dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView8"
+        android:layout_width="100dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="11dp"
+        app:layout_constraintEnd_toStartOf="@+id/cardView9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView6">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@+id/cardView2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAbout">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="100dp"
+                android:layout_height="66dp"
+                android:layout_gravity="center"
+                android:layout_margin="2dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/login" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView9"
+        android:layout_width="258dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cardView8"
+        app:layout_constraintTop_toBottomOf="@+id/cardView7">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="9dp"
+            android:background="#f7f7f7"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_Name3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:text="Priyanka Hirapara"
+                android:textColor="#333333"
+                android:textSize="19dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_Id3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:text="1894434"
+                android:textColor="#333333"
+                android:textSize="19dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView10"
+        android:layout_width="100dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="11dp"
+        app:layout_constraintEnd_toStartOf="@+id/cardView11"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView8">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@+id/cardView2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAbout">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="100dp"
+                android:layout_height="66dp"
+                android:layout_gravity="center"
+                android:layout_margin="2dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/login" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView11"
+        android:layout_width="258dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cardView10"
+        app:layout_constraintTop_toBottomOf="@+id/cardView9">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="9dp"
+            android:background="#f7f7f7"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_Name4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:text="Mandeep Kaur"
+                android:textColor="#333333"
+                android:textSize="19dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_Id4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:text="1894343"
+                android:textColor="#333333"
+                android:textSize="19dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

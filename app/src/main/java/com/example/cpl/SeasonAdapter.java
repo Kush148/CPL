@@ -31,7 +31,7 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
     @NonNull
     @Override
     public SeasonAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.single_raw_league, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.list_item_season, parent, false);
 
         final SeasonAdapter.ViewHolder sholder=new SeasonAdapter.ViewHolder(v);
         sholder.item.setOnClickListener(new View.OnClickListener() {

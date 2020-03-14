@@ -1,12 +1,15 @@
 package com.example.cpl;
 
+import android.app.DatePickerDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,11 +25,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
 
 public class VerifyUserFragment extends Fragment {
     EditText etEmail,etDob;
     String userEmail,userDob;
     Button btnConfirm;
+    DatePickerDialog.OnDateSetListener mDOBListener;
+    int year,month,day;
+    ProgressBar progressBar;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,6 +41,12 @@ public class VerifyUserFragment extends Fragment {
         View fragmentVerify = inflater.inflate(R.layout.fragment_verify_user,container,false);
         etEmail=fragmentVerify.findViewById(R.id.userEmail);
         etDob=fragmentVerify.findViewById(R.id.userDob);
+        progressBar=fragmentVerify.findViewById(R.id.progressBar);
+
+        Calendar cal = Calendar.getInstance();
+        year = cal.get(Calendar.YEAR);
+        month = cal.get(Calendar.MONTH);
+        day = cal.get(Calendar.DAY_OF_MONTH);
 
         btnConfirm=fragmentVerify.findViewById(R.id.btnConfirm);
         btnConfirm.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +57,34 @@ public class VerifyUserFragment extends Fragment {
                 new MyTask().execute();
             }
         });
+
+        etDob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog dp = new DatePickerDialog(getActivity(),mDOBListener,year, month, day);
+                dp.show();
+            }
+        });
+
+        mDOBListener = new DatePickerDialog.OnDateSetListener() {
+            String month,day;
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int m, int d) {
+                if (m < 10) {
+                    month = "0" + (m + 1);
+                } else {
+                    month = String.valueOf(m + 1);
+                }
+                if (d < 10) {
+                    day = "0" + d;
+                } else {
+                    day = String.valueOf(d);
+                }
+                String date = year +"-"+ month +"-"+ day;
+                etDob.setText(date);
+
+            }
+        };
         return fragmentVerify;
     }
 
@@ -51,6 +92,12 @@ public class VerifyUserFragment extends Fragment {
         String return_msg;
         int userId;
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+            btnConfirm.setVisibility(View.GONE);
+        }
         @Override
         protected Void doInBackground(Void... voids) {
             URL url = null;
@@ -98,9 +145,11 @@ public class VerifyUserFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void result) {
-            System.out.println("executed");
-            if (return_msg.equals("Valid User")) {
 
+            progressBar.setVisibility(View.GONE);
+            btnConfirm.setVisibility(View.VISIBLE);
+
+            if (return_msg.equals("Valid User")) {
                 Fragment changePassword = new ChangePasswordFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("UserId", userId);
