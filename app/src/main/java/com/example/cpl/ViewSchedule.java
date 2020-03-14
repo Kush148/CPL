@@ -62,7 +62,6 @@ public class ViewSchedule {
     }
 
     public ViewSchedule(int matchNo, String teamA, String teamB, String date, String venue, String result, String resultDescription) {
-       // this.matchId = matchId;
         this.matchNo = matchNo;
         this.teamA = teamA;
         this.teamB = teamB;

@@ -71,7 +71,6 @@ public class ViewFeedbackFragment extends Fragment {
                     response.append(inputLine);
                 }
                 in.close();
-
                 //print result
                 System.out.println(response.toString());
 

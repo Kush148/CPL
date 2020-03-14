@@ -94,17 +94,13 @@ public class TeamFragment extends Fragment {
                 BufferedReader in = new BufferedReader(myInput);
                 String inputLine;
                 StringBuffer response = new StringBuffer();
-
-
                 while ((inputLine = in.readLine()) != null) {
                     response.append(inputLine);
                     System.out.println("while " + response);
                 }
                 in.close();
-
                 //print result
                 System.out.println(response.toString());
-
                 JSONObject mainObject = new JSONObject(response.toString());
                 return_msg = mainObject.getString("Message");
 
@@ -115,8 +111,6 @@ public class TeamFragment extends Fragment {
                     int teamId=singleSeason.getInt("teamId");
                     String teamName = singleSeason.getString("teamName");
                     String color = singleSeason.getString("teamColor");
-
-
                     teamList.add(new Team(teamId,teamName,color));
                 }
             } catch (MalformedURLException e) {
@@ -127,7 +121,6 @@ public class TeamFragment extends Fragment {
                 e.printStackTrace();
             }
             return null;
-
         }
 
         @Override

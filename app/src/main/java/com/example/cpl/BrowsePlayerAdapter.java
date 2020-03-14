@@ -49,9 +49,6 @@ public class BrowsePlayerAdapter extends RecyclerView.Adapter<BrowsePlayerAdapte
         });
 
           return sholder;
-
-          //return new ViewHolder(view);
-
     }
 
     @Override
@@ -86,9 +83,6 @@ public class BrowsePlayerAdapter extends RecyclerView.Adapter<BrowsePlayerAdapte
             tvRole = itemView.findViewById(R.id.tv_playerRole);
             tvBirthPlace = itemView.findViewById(R.id.tv_birthPlace);
             img = itemView.findViewById(R.id.ivPlayer);
-
         }
     }
-
-
 }

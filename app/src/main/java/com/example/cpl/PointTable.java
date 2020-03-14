@@ -33,9 +33,6 @@ import java.util.List;
 import static java.sql.Types.NULL;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class PointTable extends Fragment {
 
     List<PointsTableList> pointsTableLists = new ArrayList<>();
@@ -52,15 +49,12 @@ public class PointTable extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_point_table, container, false);
+View view = inflater.inflate(R.layout.fragment_point_table, container, false);
 
         rvPointsTableList = view.findViewById(R.id.rvPointsTable);
         progressBar = view.findViewById(R.id.progressBar);
         spinner = (Spinner) view.findViewById(R.id.spinner);
         new MyTask1().execute();
-
-
         return view;
     }
 
@@ -92,13 +86,11 @@ public class PointTable extends Fragment {
                 String inputLine;
                 StringBuffer response = new StringBuffer();
 
-
                 while ((inputLine = in.readLine()) != null) {
                     response.append(inputLine);
                     System.out.println("while " + response);
                 }
                 in.close();
-
                 //print result
                 System.out.println(response.toString());
 
@@ -139,8 +131,6 @@ public class PointTable extends Fragment {
             spinner.setAdapter(SAdapter);
 
             spinner.setOnItemSelectedListener(new PointTable.MyOnItemSelectedListener());
-
-
         }
     }
 
@@ -202,7 +192,6 @@ public class PointTable extends Fragment {
                     response.append(inputLine);
                 }
                 in.close();
-
                 //print result
                 System.out.println(response.toString());
 
@@ -236,16 +225,13 @@ public class PointTable extends Fragment {
                 e.printStackTrace();
             }
             return null;
-
         }
 
         @Override
         protected void onPostExecute(Void result) {
             progressBar.setVisibility(View.GONE);
             if (return_msg.equals("null")) {
-                //change here
-               // rvPointsTableList.setVisibility(View.GONE);
-                //textview PT unavailable
+
             } else {
                 rvPointsTableList.setLayoutManager(new LinearLayoutManager(getActivity()));
                 PointsTableAdapter showTableAdapter = new PointsTableAdapter(pointsTableLists, getActivity());

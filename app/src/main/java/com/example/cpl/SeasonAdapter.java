@@ -37,13 +37,9 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
         sholder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Toast.makeText(context,"Season "+String.valueOf(sholder.getAdapterPosition()),Toast.LENGTH_LONG).show();
-
                 position=(sholder.getAdapterPosition());
                 System.out.println(position);
-
                 seasonid=listOfseason.get(position).getSeasonId();
-
                 Fragment matchFragment=new ViewScheduleFragment();
                 FragmentManager fragmentManager = ((FragmentActivity) v.getContext()).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

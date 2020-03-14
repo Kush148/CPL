@@ -38,7 +38,6 @@ public class HomeFragment extends Fragment {
     TextView totalMatchtv;
     TextView totalParticipantTv;
     int tSeason,tMatch,tParticipant;
-    RecyclerView rv;
     Animation slide_in_right, slide_out_left;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,15 +67,12 @@ public class HomeFragment extends Fragment {
         viewFlipper.addView(imageView);
         viewFlipper.setFlipInterval(3000);
         viewFlipper.setAutoStart(true);
-
         slide_in_right = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_right);
         slide_out_left = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_left);
-
         viewFlipper.setInAnimation(slide_in_right);
         viewFlipper.setOutAnimation(slide_out_left);
 
     }
-
     private class MyTask extends AsyncTask {
         String return_msg;
         @Override
@@ -102,15 +98,11 @@ public class HomeFragment extends Fragment {
                 BufferedReader in = new BufferedReader(myInput);
                 String inputLine;
                 StringBuffer response = new StringBuffer();
-
-
                 while ((inputLine = in.readLine()) != null) {
                     response.append(inputLine);
                     System.out.println("while " + response);
                 }
                 in.close();
-
-
                 //print result
                 System.out.println(response.toString());
 
@@ -121,7 +113,6 @@ public class HomeFragment extends Fragment {
                 JSONObject singledata;
                 for (int i = 0; i < scheduleArray.length(); i++) {
                     singledata = scheduleArray.getJSONObject(i);
-
                     tSeason = singledata.getInt("totalSeason");
                     tMatch = singledata.getInt("totalMatches");
                     tParticipant = singledata.getInt("totalTeam");
@@ -140,7 +131,6 @@ public class HomeFragment extends Fragment {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
-
 
             if(return_msg.equals("Available")){
                 totalSeasontv.setText(String.valueOf(tSeason));

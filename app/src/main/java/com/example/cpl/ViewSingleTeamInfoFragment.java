@@ -187,8 +187,6 @@ public class ViewSingleTeamInfoFragment extends Fragment {
                     System.out.println("while " + response);
                 }
                 in.close();
-
-
                 //print result
                 System.out.println(response.toString());
 
@@ -247,7 +245,6 @@ public class ViewSingleTeamInfoFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            //btnCreateMatch.setVisibility(View.INVISIBLE);
             progressBar.setVisibility(View.VISIBLE);
         }
 
@@ -332,6 +329,5 @@ public class ViewSingleTeamInfoFragment extends Fragment {
             }
         }
     }
-
 
 }

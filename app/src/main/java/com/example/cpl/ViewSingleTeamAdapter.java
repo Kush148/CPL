@@ -30,7 +30,6 @@ public class ViewSingleTeamAdapter extends RecyclerView.Adapter<ViewSingleTeamAd
     Context context;
     ViewSingleTeamInfo teamList;
     static int playerId;
-    // static int scheduleId = -1;
 
     public ViewSingleTeamAdapter(List<ViewSingleTeamInfo> teamList, Context context) {
         this.listOfteam = teamList;
@@ -44,12 +43,10 @@ public class ViewSingleTeamAdapter extends RecyclerView.Adapter<ViewSingleTeamAd
         return new ViewSingleTeamAdapter.ViewHolder(view);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull ViewSingleTeamAdapter.ViewHolder holder, final int position) {
 
         teamList = listOfteam.get(position);
-
         holder.playerName.setText(teamList.getPlayerName());
         holder.role.setText(teamList.getPlayerRole());
         Picasso.with(context).load(teamList.getUrl()).into(holder.img);
@@ -71,7 +68,7 @@ public class ViewSingleTeamAdapter extends RecyclerView.Adapter<ViewSingleTeamAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView playerName, role;
-        ImageView img, imgRemove, imgColor;
+        ImageView img, imgRemove;
 
 
         public ViewHolder(@NonNull final View itemView) {

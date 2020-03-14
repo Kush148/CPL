@@ -91,8 +91,6 @@ public class TeamCreate extends Fragment {
         }
     }
 
-
-
     private class MyTask2 extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -180,9 +178,7 @@ public class TeamCreate extends Fragment {
 
             teamcolor= colour[position].toLowerCase();
             switch (parent.getId()) {
-
                 case R.id.teammanager:
-
                     selectedmanagername = selectedItem;
                     val = (int)TeamManagerList.get(selectedmanagername);
                     break;

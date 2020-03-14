@@ -23,11 +23,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link fragment_add_teammanager#} factory method to
- * create an instance of this fragment.
- */
+
 public class fragment_add_teammanager extends Fragment {
 
   EditText id,name,email,contact,password,dob;
@@ -52,8 +48,6 @@ public class fragment_add_teammanager extends Fragment {
                 Password = password.toString();
                 DOB = dob.toString();
                 Ucontact = contact.toString();
-
-
                 new MyTask().execute();
                 Toast.makeText(getActivity(),"Button 0",Toast.LENGTH_LONG).show();
 
@@ -93,10 +87,8 @@ public class fragment_add_teammanager extends Fragment {
                 }
                 in.close();
 
-
                 //print result
                 System.out.println(response.toString());
-
                 JSONObject obj =new JSONObject(response.toString());
                 String return_msg = obj.getString("Message");
                 System.out.println(return_msg);
@@ -110,16 +102,11 @@ public class fragment_add_teammanager extends Fragment {
                 e.printStackTrace();
             }
             return null;
-
         }
         @Override
         protected void onPostExecute(Void result){
 
-
-//            Intent i=new Intent(InsertVehicleActivity.this, InsertShareRideActivity.class);
-//            startActivity(i);
-//
-//            super.onPostExecute(result);
+            super.onPostExecute(result);
             System.out.println("executed");
         }
     }

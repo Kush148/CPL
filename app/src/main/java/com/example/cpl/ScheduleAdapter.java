@@ -16,8 +16,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
     List<ViewSchedule> listOfschedule;
     Context context;
     ViewSchedule scheduleList;
-   // static int scheduleId = -1;
-
     public ScheduleAdapter(List<ViewSchedule> scheduleList, Context context) {
         this.listOfschedule = scheduleList;
         this.context = context;
@@ -29,7 +27,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         View view = LayoutInflater.from(context).inflate(R.layout.schedule_list, parent, false);
         return new ScheduleAdapter.ViewHolder(view);
     }
-
 
     @Override
     public void onBindViewHolder(@NonNull ScheduleAdapter.ViewHolder holder, int position) {

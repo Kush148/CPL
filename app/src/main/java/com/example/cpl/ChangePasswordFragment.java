@@ -29,7 +29,6 @@ public class ChangePasswordFragment extends Fragment {
     EditText etNewPass, etConfirmPass;
     String NewPassword, ConfirmPassword;
     Button btnReset;
-    String newPass, confirmPass;
     int userId;
     ProgressBar progressBar;
 

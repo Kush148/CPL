@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -30,9 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class BrowsePlayers extends Fragment {
 
     List<BrowsePlayerList> playerLists = new ArrayList<>();
@@ -41,19 +40,18 @@ public class BrowsePlayers extends Fragment {
     Button btnBrowse;
     String browsing;
     ImageView arrow;
-    boolean dualPane;
-    int curCheckPosition = 0;
+    TextView tv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View browsePlayer = inflater.inflate(R.layout.fragment_browse_players, container, false);
 
         rvBrowsePlayersList = browsePlayer.findViewById(R.id.rvBrowsePlayer);
         etbrowse = browsePlayer.findViewById(R.id.etBrowsePlayer);
         btnBrowse = browsePlayer.findViewById(R.id.btnBrowsePlayer);
         arrow = browsePlayer.findViewById(R.id.ivArrow);
+        tv=browsePlayer.findViewById(R.id.tv);
 
         arrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,16 +65,12 @@ public class BrowsePlayers extends Fragment {
             }
         });
 
-        Fragment back = new MoreFragment();
-        
-
         btnBrowse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 browsing = etbrowse.getText().toString();
                 new MyTask().execute();
-
             }
         });
 
@@ -116,7 +110,6 @@ public class BrowsePlayers extends Fragment {
                 }
                 in.close();
 
-                //print result
                 System.out.println(response.toString());
 
                 JSONObject obj = new JSONObject(response.toString());
@@ -157,11 +150,21 @@ public class BrowsePlayers extends Fragment {
 
         @Override
         protected void onPostExecute(Void result) {
-
-            rvBrowsePlayersList.setLayoutManager(new LinearLayoutManager(getActivity()));
-            BrowsePlayerAdapter BrowseAdapter = new BrowsePlayerAdapter(playerLists,getActivity());
-            rvBrowsePlayersList.setAdapter(BrowseAdapter);
-
+            if(return_msg.equals("Available")) {
+                rvBrowsePlayersList.setLayoutManager(new LinearLayoutManager(getActivity()));
+                BrowsePlayerAdapter BrowseAdapter = new BrowsePlayerAdapter(playerLists, getActivity());
+                rvBrowsePlayersList.setAdapter(BrowseAdapter);
+            }
+            else if(return_msg.equals("null"))
+            {
+                tv.setText("No players Available");
+                tv.setVisibility(View.VISIBLE);
+                rvBrowsePlayersList.setVisibility(View.INVISIBLE);
+            }
+            else
+            {
+                Toast.makeText(getContext(),"",Toast.LENGTH_LONG).show();
+            }
             super.onPostExecute(result);
         }
     }

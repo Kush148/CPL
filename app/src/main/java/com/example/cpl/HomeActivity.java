@@ -16,7 +16,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         btmNav = findViewById(R.id.bottom_nav);
         Fragment currentFragment = new HomeFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, currentFragment).commit();

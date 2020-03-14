@@ -65,11 +65,22 @@
             android:textAlignment="center"
             android:textSize="20dp"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv"
+            android:text="ccccccccccccccccccc"
+            android:visibility="gone"
+            android:gravity="center"
+            ></TextView>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvBrowsePlayer"
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
+
 
     </LinearLayout>
 </LinearLayout>

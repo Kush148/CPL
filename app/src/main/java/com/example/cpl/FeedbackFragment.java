@@ -54,9 +54,6 @@ public class FeedbackFragment extends Fragment {
                 }
             }
         });
-
-
-
         return feedbackInsert;
     }
 

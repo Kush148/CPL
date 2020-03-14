@@ -25,8 +25,6 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder> {
     Context context;
     Team teamlist;
     static int teamId,position;
-    //check upper static variables
-
     public TeamAdapter(List<Team> listofteam, Context context) {
         Listofteam = listofteam;
         this.context = context;
@@ -57,8 +55,6 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder> {
         });
 
         return sholder;
-
-
     }
 
     @Override
@@ -87,7 +83,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder> {
             super(itemView);
             item=(RelativeLayout)itemView.findViewById(R.id.rl1);
             teamName = itemView.findViewById(R.id.teamname);
-            teamColor = itemView.findViewById(R.id.teamcolor);
+            teamColor = itemView.findViewById(R.id.teamcolour);
         }
     }
 }
