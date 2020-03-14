@@ -2,7 +2,7 @@ package com.example.cpl;
 
 public class ViewSingleTeamInfo {
 
-    int playerId;
+    int playerId,teamManagerId;
     String teamName,teamColor,userName,contactNumber,playerName,playerRole,url;
 
     public ViewSingleTeamInfo(int playerId, String playerName, String playerRole, String url) {
@@ -20,7 +20,16 @@ public class ViewSingleTeamInfo {
         this.playerId = playerId;
     }
 
-    public ViewSingleTeamInfo(String teamName, String teamColor, String userName, String contactNumber) {
+    public int getTeamManagerId() {
+        return teamManagerId;
+    }
+
+    public void setTeamManagerId(int teamManagerId) {
+        this.teamManagerId = teamManagerId;
+    }
+
+    public ViewSingleTeamInfo(int teamManagerId, String teamName, String teamColor, String userName, String contactNumber) {
+        this.teamManagerId=teamManagerId;
         this.teamName = teamName;
         this.teamColor = teamColor;
         this.userName = userName;

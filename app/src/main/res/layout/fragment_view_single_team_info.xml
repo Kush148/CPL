@@ -1,116 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="15dp">
+        android:layout_marginStart="168dp"
+        android:inputType="number"
+        android:maxLength="10"
+        android:maxLines="1"
+        android:text="CONTACT NO:"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/et_teamManagerContact"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TEAM NAME: "
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/tv_teamName"
-                android:inputType="textCapWords"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="team name"/>
-        </LinearLayout>
+    <EditText
+        android:id="@+id/et_teamManagerContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="6dp"
+        android:inputType="number"
+        android:maxLength="10"
+        android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@+id/rc_teamPlayer"
+        app:layout_constraintStart_toEndOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/tv_teamManagerName"
+        app:layout_constraintVertical_bias="0.583" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp">
+    <ImageView
+        android:id="@+id/editImageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toEndOf="@+id/et_teamManagerContact"
+        app:layout_constraintTop_toBottomOf="@+id/tv_teamManagerName"
+        app:srcCompat="@drawable/edit" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TEAM COLOR: "
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/tv_teamColor"
-                android:inputType="textCapWords"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="team color"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TEAM MANAGER NAME: "
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/tv_teamManagerName"
-                android:inputType="textCapWords"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="team manager name"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginStart="15dp"
-            android:layout_marginBottom="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TEAM MANAGER CONTACT: "
-                android:textStyle="bold" />
-            <EditText
-                android:id="@+id/et_teamManagerContact"
-                android:maxLines="1"
-                android:maxLength="10"
-                android:inputType="number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="contact"/>
-
-            <ImageView
-                android:id="@+id/editImageView"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="8dp"
-                app:srcCompat="@drawable/edit" />
-            <ImageView
-                android:id="@+id/rightImageView"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="8dp"
-                app:srcCompat="@drawable/right" />
-        </LinearLayout>
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/rightImageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/editImageView"
+        app:layout_constraintTop_toBottomOf="@+id/tv_teamManagerName"
+        app:srcCompat="@drawable/right" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -119,27 +61,84 @@
         android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginBottom="300dp"
-        android:visibility="gone"
         android:layout_gravity="center"
+        android:layout_marginTop="348dp"
+        android:layout_marginBottom="731dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rc_teamPlayer"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_teamName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        android:layout_marginTop="150dp"
-        ></androidx.recyclerview.widget.RecyclerView>
+        android:layout_marginStart="168dp"
+        android:hint="Team name"
+        android:inputType=""
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="12dp"
+        android:text="MANAGER NAME:  "
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_teamName" />
+
+    <TextView
+        android:id="@+id/tv_teamManagerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint=""
+        android:inputType="textCapWords"
+        app:layout_constraintStart_toEndOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/tv_teamName" />
 
     <TextView
         android:id="@+id/tvNoData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_teamPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgTeamColor"
+        app:layout_constraintVertical_bias="0.0"></androidx.recyclerview.widget.RecyclerView>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgTeamColor"
+        android:layout_width="146dp"
+        android:layout_height="127dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/logo"
+        app:civ_border_color="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

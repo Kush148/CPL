@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,8 +34,9 @@ import java.util.List;
 public class ViewSingleTeamInfoFragment extends Fragment {
 
     ProgressBar progressBar;
-    ImageView editImage,saveImage,removeImage;
-    TextView tvTeamName,tvTeamColor,tvManagerName,tvContact,tvNoData;
+    int totalPlayer,teamManagerId;
+    ImageView editImage,saveImage,removeImage,ivTeamColor;
+    TextView tvTeamName,tvTeamColor,tvManagerName,tvContact,tvNoData,tvNoMatches;
     String teamName,teamColor,userName,contactNumber,newContactNumber;
     RecyclerView rvPlayerList;
     List<ViewSingleTeamInfo> teamInfoList = new ArrayList<>();
@@ -42,8 +45,10 @@ public class ViewSingleTeamInfoFragment extends Fragment {
         View fragmentTeamInfo = inflater.inflate(R.layout.fragment_view_single_team_info, container, false);
 
         progressBar = fragmentTeamInfo.findViewById(R.id.progressBar);
+        tvNoMatches=fragmentTeamInfo.findViewById(R.id.tvNoData);
         tvTeamName=fragmentTeamInfo.findViewById(R.id.tv_teamName);
-        tvTeamColor=fragmentTeamInfo.findViewById(R.id.tv_teamColor);
+        ivTeamColor=(ImageView) fragmentTeamInfo.findViewById(R.id.imgTeamColor);
+//        tvTeamColor=fragmentTeamInfo.findViewById(R.id.imgTeamColor);
         tvManagerName=fragmentTeamInfo.findViewById(R.id.tv_teamManagerName);
         tvContact=fragmentTeamInfo.findViewById(R.id.et_teamManagerContact);
         editImage=fragmentTeamInfo.findViewById(R.id.editImageView);
@@ -51,6 +56,7 @@ public class ViewSingleTeamInfoFragment extends Fragment {
         tvNoData=fragmentTeamInfo.findViewById(R.id.tvNoData);
 
         tvContact.setEnabled(false);
+        tvTeamName.setAllCaps(true);
         saveImage.setVisibility(View.GONE);
 
         editImage.setOnClickListener(new View.OnClickListener() {
@@ -198,12 +204,12 @@ public class ViewSingleTeamInfoFragment extends Fragment {
                 for (int i = 0; i < scheduleArray.length(); i++) {
                     singleSchedule = scheduleArray.getJSONObject(i);
 
+                    teamManagerId=singleSchedule.getInt("teamManagerId");
                     teamName = singleSchedule.getString("teamName");
-                    teamColor = singleSchedule.getString("teamColor");
                     userName = singleSchedule.getString("userName");
                     contactNumber = singleSchedule.getString("contactNumber");
 
-                    teamInfoList.add(new ViewSingleTeamInfo(teamName,teamColor,userName,contactNumber));
+                    teamInfoList.add(new ViewSingleTeamInfo(teamManagerId,teamName,teamColor,userName,contactNumber));
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -220,9 +226,9 @@ public class ViewSingleTeamInfoFragment extends Fragment {
             super.onPostExecute(result);
 
             tvTeamName.setText(teamName);
-            tvTeamColor.setText(teamColor);
             tvManagerName.setText(userName);
             tvContact.setText(contactNumber);
+            Picasso.with(getActivity()).load(teamColor).into(ivTeamColor);
 
             if(return_msg.equals("Available")){
                 rvPlayerList.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -231,7 +237,8 @@ public class ViewSingleTeamInfoFragment extends Fragment {
                 rvPlayerList.setAdapter(SAdapter);
             }
             else if(return_msg.equals(null)){
-                Toast.makeText(getActivity(), "No information Available", Toast.LENGTH_SHORT).show();
+                tvNoMatches.setText("No Players Available");
+                tvNoMatches.setVisibility(View.VISIBLE);
             }
             else{
                 Toast.makeText(getActivity(), "Error! Try again later.", Toast.LENGTH_SHORT).show();
@@ -286,6 +293,8 @@ public class ViewSingleTeamInfoFragment extends Fragment {
                 return_msg=mainObject.getString("Message");
 
                 JSONArray scheduleArray = mainObject.getJSONArray("Players");
+                totalPlayer=scheduleArray.length();
+
                 JSONObject singleSchedule;
                 for(int i=0;i<scheduleArray.length();i++){
                     singleSchedule=scheduleArray.getJSONObject(i);
@@ -314,7 +323,10 @@ public class ViewSingleTeamInfoFragment extends Fragment {
         protected void onPostExecute(Void result) {
 
             super.onPostExecute(result);
+
+            Toast.makeText(getActivity(), totalPlayer+" Players available", Toast.LENGTH_LONG).show();
             progressBar.setVisibility(View.INVISIBLE);
+
             if(return_msg.equals("Available")) {
                 rvPlayerList.setLayoutManager(new LinearLayoutManager(getActivity()));
                 final ViewSingleTeamAdapter SAdapter = new ViewSingleTeamAdapter(teamInfoList, getActivity());
