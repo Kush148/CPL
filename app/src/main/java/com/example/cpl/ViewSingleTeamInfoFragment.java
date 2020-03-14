@@ -49,7 +49,6 @@ public class ViewSingleTeamInfoFragment extends Fragment {
         editImage=fragmentTeamInfo.findViewById(R.id.editImageView);
         saveImage=fragmentTeamInfo.findViewById(R.id.rightImageView);
         tvNoData=fragmentTeamInfo.findViewById(R.id.tvNoData);
-        //contactNumber=tvContact.toString();
 
         tvContact.setEnabled(false);
         saveImage.setVisibility(View.GONE);
@@ -69,20 +68,34 @@ public class ViewSingleTeamInfoFragment extends Fragment {
 
                 newContactNumber=tvContact.getText().toString();
 
-                new teamManagerInfoUpdate().execute();
-                saveImage.setVisibility(View.GONE);
-                editImage.setVisibility(View.VISIBLE);
-                tvContact.setEnabled(false);
+                if(validateInput()) {
+                    new teamManagerInfoUpdate().execute();
+                    saveImage.setVisibility(View.GONE);
+                    editImage.setVisibility(View.VISIBLE);
+                    tvContact.setEnabled(false);
+                }
             }
         });
 
         rvPlayerList = fragmentTeamInfo.findViewById(R.id.rc_teamPlayer);
         new MyTask().execute();
         new teamInfo().execute();
-        // new removePlayer().execute();
 
         return fragmentTeamInfo;
     }
+
+    private boolean validateInput() {
+
+        contactNumber = (tvContact.getText().toString().trim());
+
+        if (contactNumber.isEmpty()) {
+            tvContact.requestFocus();
+            tvContact.setError("Contact number can't be empty");
+            return false;
+        }
+        return true;
+    }
+
 
     private class teamManagerInfoUpdate extends AsyncTask<Void, Void, Void> {
         String return_msg;

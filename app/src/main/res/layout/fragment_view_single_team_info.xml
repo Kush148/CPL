@@ -91,7 +91,8 @@
             <EditText
                 android:id="@+id/et_teamManagerContact"
                 android:maxLines="1"
-                android:inputType="textPersonName"
+                android:maxLength="10"
+                android:inputType="number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="contact"/>
