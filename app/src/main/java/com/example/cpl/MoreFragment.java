@@ -93,7 +93,7 @@ public class MoreFragment extends Fragment {
         llLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pref.logout();
+
                 final   Fragment homeFragment = new HomeFragment();
                 FragmentManager fm = getFragmentManager();
                 final FragmentTransaction ft =fm.beginTransaction();
@@ -105,6 +105,7 @@ public class MoreFragment extends Fragment {
 
                             @Override
                             public void onClick(DialogInterface arg0, int arg1) {
+                                pref.logout();
                                 ft.replace(R.id.frame_layout,homeFragment).commit();
                             }
                         });

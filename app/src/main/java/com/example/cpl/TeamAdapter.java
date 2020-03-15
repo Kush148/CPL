@@ -67,7 +67,6 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder> {
                 .fit()
                 .centerCrop()
                 .into(holder.teamColor);
-
     }
 
     @Override

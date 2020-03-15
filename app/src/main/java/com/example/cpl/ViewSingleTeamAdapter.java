@@ -44,21 +44,12 @@ public class ViewSingleTeamAdapter extends RecyclerView.Adapter<ViewSingleTeamAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewSingleTeamAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull ViewSingleTeamAdapter.ViewHolder holder,  int position) {
 
-        teamList = listOfteam.get(position);
-        holder.playerName.setText(teamList.getPlayerName());
-        holder.role.setText(teamList.getPlayerRole());
-        Picasso.with(context).load(teamList.getUrl()).into(holder.img);
+        holder.playerName.setText(listOfteam.get(position).getPlayerName());
+        holder.role.setText(listOfteam.get(position).getPlayerRole());
+        Picasso.with(context).load(listOfteam.get(position).getUrl()).into(holder.img);
 
-        holder.imgRemove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playerId = listOfteam.get(position).getPlayerId();
-                new removePlayer().execute();
-                delete(position);
-            }
-        });
     }
 
     @Override
@@ -78,7 +69,16 @@ public class ViewSingleTeamAdapter extends RecyclerView.Adapter<ViewSingleTeamAd
             playerName = itemView.findViewById(R.id.tv_playerName);
             role = itemView.findViewById(R.id.tv_role);
             imgRemove = itemView.findViewById(R.id.imgRemovePlayer);
-
+            imgRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    playerId = listOfteam.get(getAdapterPosition()).getPlayerId();
+                    System.out.println(playerId);
+                    System.out.println(getAdapterPosition());
+                    new removePlayer().execute();
+                    delete(getAdapterPosition());
+                }
+            });
         }
     }
 
