@@ -115,7 +115,6 @@ public class ViewScheduleFragment extends Fragment {
                 for (int i = 0; i < scheduleArray.length(); i++) {
                     singleSchedule = scheduleArray.getJSONObject(i);
 
-                    int matchNo = singleSchedule.getInt("Match Number");
                     String teamA = singleSchedule.getString("TeamA");
                     String teamB = singleSchedule.getString("TeamB");
                     String date = singleSchedule.getString("Date");
@@ -123,7 +122,7 @@ public class ViewScheduleFragment extends Fragment {
                     String result = singleSchedule.getString("Result");
                     String resultDescription = singleSchedule.getString("Result Description");
 
-                    scheduleList.add(new ViewSchedule(matchNo, teamA, teamB, date, venue, result, resultDescription));
+                    scheduleList.add(new ViewSchedule(teamA, teamB, date, venue, result, resultDescription));
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();

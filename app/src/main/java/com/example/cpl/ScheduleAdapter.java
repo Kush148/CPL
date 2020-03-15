@@ -33,7 +33,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
         scheduleList = listOfschedule.get(position);
 
-        holder.tvMatchNo.setText(Integer.toString(scheduleList.getMatchNo()));
+
         holder.tvTeamA.setText(scheduleList.getTeamA());
         holder.tvTeamB.setText(scheduleList.getTeamB());
         holder.tvDate.setText(scheduleList.getDate());
@@ -54,7 +54,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
-            tvMatchNo=itemView.findViewById(R.id.tv_matchNo);
+
             tvTeamA = itemView.findViewById(R.id.tv_teamA);
             tvTeamB = itemView.findViewById(R.id.tv_teamB);
             tvDate = itemView.findViewById(R.id.tv_date);

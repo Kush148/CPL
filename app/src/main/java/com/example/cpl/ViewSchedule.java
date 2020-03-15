@@ -2,16 +2,9 @@ package com.example.cpl;
 
 public class ViewSchedule {
 
-    int matchNo;
+
     String teamA,teamB,date,venue,result,resultDescription;
 
-    public int getMatchNo() {
-        return matchNo;
-    }
-
-    public void setMatchNo(int matchNo) {
-        this.matchNo = matchNo;
-    }
 
     public String getTeamA() {
         return teamA;
@@ -61,8 +54,8 @@ public class ViewSchedule {
         this.resultDescription = resultDescription;
     }
 
-    public ViewSchedule(int matchNo, String teamA, String teamB, String date, String venue, String result, String resultDescription) {
-        this.matchNo = matchNo;
+    public ViewSchedule( String teamA, String teamB, String date, String venue, String result, String resultDescription) {
+
         this.teamA = teamA;
         this.teamB = teamB;
         this.date = date;

@@ -24,29 +24,6 @@
             android:layout_marginTop="1dp"
             android:layout_marginBottom="9dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:layout_marginStart="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="MATCH : "
-                    android:textSize="30dp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/tv_matchNo"
-                    android:inputType="textCapCharacters"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="30dp"
-                    android:textStyle="bold"
-                    android:text="MATCH NO."/>
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,13 +46,9 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="2dp"
                     android:text=" vs "
-                    android:textColor="@color/white"
-                    android:padding="2dp"
-                    android:shadowColor="@color/white"
-                    android:background="#000000"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:shadowRadius="3"
+                    android:textSize="15dp"
+                    android:textColor="#111111"
+
                     android:layout_marginStart="10dp"/>
                 <TextView
                     android:id="@+id/tv_teamB"
@@ -100,24 +73,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="DATE : "
-                    android:layout_marginStart="10dp"/>
+                    />
                 <TextView
                     android:id="@+id/tv_date"
                     android:inputType="textCapCharacters"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="DATE"/>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="15dp">
-
+                <View
+                    android:layout_width="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_height="fill_parent"
+                    android:background="#FF0000FF" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -129,15 +96,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="VENUE"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="15dp">
 
+                <View
+                    android:layout_width="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_height="fill_parent"
+                    android:background="#FF0000FF" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -149,7 +113,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="RESULT"/>
+
             </LinearLayout>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
