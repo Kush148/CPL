@@ -149,7 +149,7 @@ public class PlayerListFragment extends Fragment {
                 rvPlayerList.setLayoutManager(new LinearLayoutManager(getActivity()));
                 PlayerListAdapter SAdapter = new PlayerListAdapter(playerList, getActivity());
                 rvPlayerList.setAdapter(SAdapter);
-            }else{
+            } else {
                 Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG).show();
             }
         }
@@ -169,7 +169,7 @@ public class PlayerListFragment extends Fragment {
         protected Void doInBackground(Void... voids) {
             URL url = null;
             try {
-                url = new URL("http://" + Constants.localHost + "/" + Constants.projectPath + "main/updatePlayerTeams&"+ TeamAdapter.teamId + "&" + selectedPlayers);
+                url = new URL("http://" + Constants.localHost + "/" + Constants.projectPath + "main/updatePlayerTeams&" + TeamCreate.newtId + "&" + selectedPlayers);
                 HttpURLConnection client = null;
 
                 client = (HttpURLConnection) url.openConnection();

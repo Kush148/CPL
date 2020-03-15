@@ -3,7 +3,6 @@ package com.example.cpl;
 import android.app.DatePickerDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,14 +49,12 @@ public class CreateMatchFragment extends Fragment {
         View fragmentMatch = inflater.inflate(R.layout.fragment_create_match, container, false);
 
         progressBar = fragmentMatch.findViewById(R.id.progressBar);
-        etMatchNo=fragmentMatch.findViewById(R.id.etMatchNo);
-        etTeamA=(Spinner)fragmentMatch.findViewById(R.id.etTeamA);
-        etTeamB=(Spinner)fragmentMatch.findViewById(R.id.etTeamB);
+        etTeamA=fragmentMatch.findViewById(R.id.etTeamA);
+        etTeamB=fragmentMatch.findViewById(R.id.etTeamB);
         etDate=fragmentMatch.findViewById(R.id.etDate);
         etVenue=fragmentMatch.findViewById(R.id.etVenue);
         btnCreateMatch=fragmentMatch.findViewById(R.id.btnCreateMatch);
         new MyTask2().execute();
-        final Calendar calendar=Calendar.getInstance();
 
         Calendar cal = Calendar.getInstance();
         year = cal.get(Calendar.YEAR);
@@ -105,25 +102,19 @@ public class CreateMatchFragment extends Fragment {
 
     private boolean validateInput() {
 
-        matchNumber = (etMatchNo.getText().toString().trim());
-        date = (etDate.getText().toString().trim());
+        date = (etDate.getText().toString());
         venue = (etVenue.getText().toString().trim());
 
-        if (matchNumber.isEmpty()) {
-            etMatchNo.requestFocus();
-            etMatchNo.setError("Match number can't be empty");
-            return false;
-        } else if (date.isEmpty()) {
+       if (date.isEmpty()) {
             etDate.requestFocus();
             etDate.setError("Date can't be empty");
             return false;
-        } else  if (venue.isEmpty()) {
+        }   if (venue.isEmpty()) {
             etVenue.requestFocus();
             etVenue.setError("Venue can't be empty");
             return false;
         }
         else {
-            etMatchNo.setError(null);
             etDate.setError(null);
             etVenue.setError(null);
             return true;
@@ -193,7 +184,7 @@ public class CreateMatchFragment extends Fragment {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
 
-            ArrayAdapter SAdapter = new ArrayAdapter(getContext(),R.layout.single_spinnerdata,TeamList);
+            ArrayAdapter SAdapter = new ArrayAdapter(getContext(), R.layout.single_spinnerdata,TeamList);
             SAdapter.setDropDownViewResource(R.layout.single_spinnerdata);
             etTeamA.setAdapter(SAdapter);
             etTeamB.setAdapter(SAdapter);
@@ -242,7 +233,7 @@ public class CreateMatchFragment extends Fragment {
         protected Void doInBackground(Void... voids) {
             URL url = null;
             try {
-                url = new URL("http://" + Constants.localHost+"/" + Constants.projectPath + "leagueManager/createMatch"+"&"+matchNumber+"&"+teamAlist+"&"+teamBlist+"&"+date+"&"+venue+"&"+null+"&"+null+"&"+1+"&"+1);
+                url = new URL("http://" + Constants.localHost+"/" + Constants.projectPath + "leagueManager/createMatch"+"&"+teamAlist+"&"+teamBlist+"&"+date+"&"+venue+"&"+null+"&"+null+"&"+ SeasonAdapter.seasonid);
 
                 HttpURLConnection client = null;
 
@@ -290,6 +281,9 @@ public class CreateMatchFragment extends Fragment {
             progressBar.setVisibility(View.INVISIBLE);
 
             if (return_msg.equals("Match Created")) {
+                Fragment currentFragment = new SeasonFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, currentFragment).commit();
+
                 Toast.makeText(getActivity(), "Match Created", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();

@@ -113,12 +113,13 @@ public class SeasonFragment extends Fragment {
                 JSONObject singleSeason;
                 for (int i = 0; i < SeasonArray.length(); i++) {
                     singleSeason = SeasonArray.getJSONObject(i);
+                    int SeasonId = singleSeason.getInt("SeasonId");
                     String SeasonTitle = singleSeason.getString("Season Title");
                     String Description = singleSeason.getString("Description");
                     String StartDate = singleSeason.getString("Start Date");
                     String EndDate = singleSeason.getString("End Date");
 
-                    SeasonList.add(new Season(SeasonTitle, StartDate, EndDate));
+                    SeasonList.add(new Season(SeasonId,SeasonTitle, StartDate, EndDate));
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();

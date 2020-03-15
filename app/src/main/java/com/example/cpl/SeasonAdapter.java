@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -34,19 +35,6 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
         View v = LayoutInflater.from(context).inflate(R.layout.list_item_season, parent, false);
 
         final SeasonAdapter.ViewHolder sholder=new SeasonAdapter.ViewHolder(v);
-        sholder.item.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                position=(sholder.getAdapterPosition());
-                System.out.println(position);
-                seasonid=listOfseason.get(position).getSeasonId();
-                Fragment matchFragment=new ViewScheduleFragment();
-                FragmentManager fragmentManager = ((FragmentActivity) v.getContext()).getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.frame_layout,matchFragment).commit();
-
-            }
-        });
         return sholder;
 
     }
@@ -71,12 +59,28 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
 
         RelativeLayout item;
         TextView SeasonNameId,StartDate,EndDate ;
+        CardView cardView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            item=(RelativeLayout)itemView.findViewById(R.id.single_raw);
+            item=itemView.findViewById(R.id.single_raw);
             SeasonNameId = itemView.findViewById(R.id.SeasonNameId);
             StartDate = itemView.findViewById(R.id.StartDate);
             EndDate = itemView.findViewById(R.id.EndDate);
+            cardView = itemView.findViewById(R.id.cv1);
+
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    seasonid=listOfseason.get(getAdapterPosition()).getSeasonId();
+                    System.out.println(seasonid+"seasonId");
+                    Fragment matchFragment=new ViewScheduleFragment();
+                    FragmentManager fragmentManager = ((FragmentActivity) v.getContext()).getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.frame_layout,matchFragment).commit();
+
+                }
+            });
+
         }
     }
 }

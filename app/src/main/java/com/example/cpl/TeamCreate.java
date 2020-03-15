@@ -44,6 +44,7 @@ public class TeamCreate extends Fragment {
     Spinner spinner,Teamcolor;
     private String selectedmanagername = null;
     private int val= 0;
+    static int newtId;
     public HashMap<String, Integer> TeamManagerList = new HashMap<>();
     public ArrayList<String> managernames = new ArrayList<String>();
     String[] colour = { "BLUE","GREEN","ORANGE","PINK","PURPLE","RED","YELLOW"};
@@ -219,7 +220,8 @@ public class TeamCreate extends Fragment {
                 System.out.println(response.toString());
                 JSONObject obj =new JSONObject(response.toString());
                 return_msg = obj.getString("Message");
-                System.out.println(return_msg);
+                newtId = obj.getInt("TeamID");
+                System.out.println(newtId);
             }
             catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -236,8 +238,11 @@ public class TeamCreate extends Fragment {
 
             btn.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.INVISIBLE);
-            if (return_msg.equals(" Record(s) have been successfully inserted.")){
-                Toast.makeText(getActivity()," Record(s) have been successfully inserted.",Toast.LENGTH_SHORT).show();
+            if (return_msg.equals("Team Created")){
+                Fragment currentFragment = new PlayerListFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, currentFragment).commit();
+
+                Toast.makeText(getActivity()," Team Created",Toast.LENGTH_SHORT).show();
             }
             else
             {
