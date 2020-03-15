@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:maxLength="20"
-                android:inputType="textCapSentences"
+                android:inputType="textCapWords"
                 android:drawablePadding="20dp"
                 android:hint="Season Name" />
 
@@ -66,6 +66,7 @@
                 android:id="@+id/etSeasonDescription"
                 android:hint="Season Description"
                 android:maxLines="5"
+                android:maxLength="255"
                 android:inputType="textCapSentences"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

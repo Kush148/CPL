@@ -109,9 +109,9 @@ public class ViewSingleTeamInfoFragment extends Fragment {
         });
 
         rvPlayerList = fragmentTeamInfo.findViewById(R.id.rc_teamPlayer);
-        new teamInfo().execute();
-        new MyTask().execute();
 
+        new MyTask().execute();
+        new teamInfo().execute();
 
         return fragmentTeamInfo;
     }

@@ -58,6 +58,8 @@
                     android:drawablePadding="20dp"
                     android:id="@+id/userId"
                     android:hint="2"
+                    android:maxLines="1"
+                    android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -71,7 +73,8 @@
                     android:hint="Charls Reddy"
                     android:id="@+id/userName"
                     android:maxLines="1"
-                    android:inputType="textPersonName"
+                    android:inputType="textCapWords"
+                    android:maxLength="20"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -85,6 +88,7 @@
                     android:drawablePadding="20dp"
                     android:id="@+id/email"
                     android:maxLines="1"
+                    android:maxLength="50"
                     android:inputType="textEmailAddress"
                     android:hint="charlsreddy56@gmail.com"
                     android:layout_width="match_parent"
@@ -100,7 +104,8 @@
                     android:drawablePadding="20dp"
                     android:id="@+id/password"
                     android:maxLines="1"
-                    android:inputType="numberPassword"
+                    android:maxLength="15"
+                    android:inputType="textPassword"
                     android:hint="********"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -130,7 +135,8 @@
                     android:drawablePadding="20dp"
                     android:id="@+id/contact"
                     android:maxLines="1"
-                    android:inputType="phone"
+                    android:inputType="number"
+                    android:maxLength="10"
                     android:hint="5146785643"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />

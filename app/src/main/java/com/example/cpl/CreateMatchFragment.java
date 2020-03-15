@@ -113,11 +113,11 @@ public class CreateMatchFragment extends Fragment {
             etMatchNo.requestFocus();
             etMatchNo.setError("Match number can't be empty");
             return false;
-        }  if (date.isEmpty()) {
+        } else if (date.isEmpty()) {
             etDate.requestFocus();
             etDate.setError("Date can't be empty");
             return false;
-        }   if (venue.isEmpty()) {
+        } else  if (venue.isEmpty()) {
             etVenue.requestFocus();
             etVenue.setError("Venue can't be empty");
             return false;

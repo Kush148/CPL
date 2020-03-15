@@ -69,12 +69,29 @@ public class BrowsePlayers extends Fragment {
             @Override
             public void onClick(View view) {
 
-                browsing = etbrowse.getText().toString();
-                new MyTask().execute();
+                if(validateInput()) {
+                    browsing = etbrowse.getText().toString();
+                    new MyTask().execute();
+                }
             }
         });
 
         return browsePlayer;
+    }
+
+    private boolean validateInput() {
+
+        browsing = (etbrowse.getText().toString().trim());
+
+        if (browsing.isEmpty()) {
+            etbrowse.requestFocus();
+            etbrowse.setError("Can't be empty");
+            return false;
+        }
+        else {
+            etbrowse.setError(null);
+            return true;
+        }
     }
 
     private class MyTask extends AsyncTask<Void, Void, Void> {

@@ -56,7 +56,8 @@
                     android:id="@+id/teamname"
                     android:hint="Super King"
                     android:maxLines="1"
-                    android:inputType="text"
+                    android:inputType="textCapWords"
+                    android:maxLength="20"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 

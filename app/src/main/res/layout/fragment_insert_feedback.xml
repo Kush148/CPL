@@ -56,8 +56,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:hint="Email"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:maxLines="1"
+            android:maxLength="40"
             android:padding="10dp" />
 
         <EditText
@@ -65,6 +66,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:inputType="textCapWords"
             android:hint="Title"
             android:padding="10dp" />
 
